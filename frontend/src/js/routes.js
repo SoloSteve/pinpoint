@@ -1,10 +1,10 @@
-import HomePage from '../pages/home.vue';
+import Navigation from '../pages/navigation.vue';
 import NotFoundPage from '../pages/404.vue';
 
 const routes = [
   {
     path: '/',
-    component: HomePage,
+    component: Navigation,
   },
   {
     path: '(.*)',
