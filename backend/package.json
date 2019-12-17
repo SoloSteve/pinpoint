@@ -1,0 +1,37 @@
+{
+  "name": "back-end",
+  "version": "0.0.1",
+  "description": "Meet Up",
+  "main": "main.js",
+  "scripts": {
+    "start": "npm run build && npm run run",
+    "build": "tsc -p tsconfig.json",
+    "run": "node dist/main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Steve <sivanthe1@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/dotenv": "^6.1.1",
+    "@types/koa": "^2.0.49",
+    "@types/koa__router": "^8.0.0",
+    "@types/lodash": "^4.14.141",
+    "@types/node": "^12.7.5",
+    "@typescript-eslint/eslint-plugin": "^2.3.0",
+    "@typescript-eslint/parser": "^2.3.0",
+    "eslint": "^6.4.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^6.3.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-prettier": "^3.1.1",
+    "prettier": "^1.18.2",
+    "typescript": "^3.6.3"
+  },
+  "dependencies": {
+    "@koa/router": "latest",
+    "dotenv": "latest",
+    "koa": "latest",
+    "lodash": "latest",
+    "winston": "latest"
+  }
+}
