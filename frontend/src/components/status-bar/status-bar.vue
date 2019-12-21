@@ -9,7 +9,7 @@
             <StatusBarIcon/>
         </f7-nav-title>
         <f7-nav-right>
-            <GroupButton link="#"/>
+            <GroupButton link="/group/"/>
         </f7-nav-right>
     </f7-navbar>
 </template>

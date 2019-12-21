@@ -1,7 +1,9 @@
 <template>
     <f7-block>
-        <f7-button color="green" outline raised>
-            <f7-icon material="group"/>
+        <f7-button :href="link" color="green" outline raised>
+            <f7-icon material="group">
+            </f7-icon>
+            <f7-badge color="blue">5</f7-badge>
         </f7-button>
     </f7-block>
 </template>
