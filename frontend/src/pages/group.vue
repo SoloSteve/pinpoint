@@ -18,7 +18,7 @@
             </f7-block>
             <f7-link class="no-caps sms" icon="fas fa-sms" text="SMS"/>
             <f7-link class="no-caps whatsapp" icon="fab fa-whatsapp" text="WhatsApp"/>
-            <f7-link class="no-caps fb-messenger" icon="fab fa-facebook-messenger" text="FB Messenger"/>
+            <f7-link class="no-caps fb-messenger" icon="fab fa-facebook-messenger" text="Messenger"/>
         </f7-toolbar>
 
     </f7-page>
@@ -26,35 +26,41 @@
 
 <script>
   import ContactList from "../components/group/contact-list";
+
   export default {
     name: "group",
     components: {ContactList},
     data() {
       return {
         users: [
-          {name: "Abby"},
-          {name: "Gabby"},
-          {name: "Steve"},
-          {name: "Dad"},
-          {name: "Gil"},
-          {name: "Ziv"},
-          {name: "Adi"},
-          {name: "Lior"},
-          {name: "Or"},
-          {name: "Rotem"},
-          {name: "Kushnir"},
-          {name: "סבא"},
-          {name: "Dave"},
-          {name: "bob"},
-          {name: "Bill"},
-          {name: "Scott"},
-          {name: "Omer"},
-          {name: "Grandpa"},
-          {name: "Shaun"},
-          {name: "Sean"},
-          {name: "Timo"},
-          {name: "Oran"},
-          {name: "Oren"},
+          {
+            name: "Abby",
+            location: {
+              lat: 0,
+              lng: 0,
+              speed: 4,
+              accuracy: 9,
+              heading: 47
+            },
+            status: {
+              connection: "Online",
+              location: 0,
+            }
+          },
+          {
+            name: "Gabby",
+            location: {
+              lat: 0,
+              lng: 0,
+              speed: 4,
+              accuracy: 9,
+              heading: 47
+            },
+            status: {
+              connection: "Online",
+              location: 0,
+            }
+          }
         ]
       }
     },
