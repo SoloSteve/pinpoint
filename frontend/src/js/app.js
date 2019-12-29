@@ -1,11 +1,18 @@
 // Import Vue
 import Vue from 'vue';
+
+
 // Import Framework7
-import Framework7 from 'framework7/framework7-lite.esm.bundle.js';
+// Import WITHOUT Bundle: import Framework7 from 'framework7/framework7-lite.esm.js';
+import Framework7 from "framework7/framework7-lite.esm.bundle";
+
 // Import Framework7-Vue Plugin
-import Framework7Vue from 'framework7-vue/framework7-vue.esm.bundle.js';
+// Import All NEEDED components: import Framework7Vue, {f7App} from 'framework7-vue';
+import Framework7Vue from "framework7-vue/framework7-vue.esm.bundle";
+
 // Import Framework7 Styles
-import 'framework7/css/framework7.bundle.css';
+// Import ONLY NEEDED: import 'framework7/css/framework7.css';
+import 'framework7/css/framework7.bundle.min.css';
 // Import Icons and App Custom Styles
 import '../css/icons.css';
 import '../css/app.css';
@@ -15,6 +22,8 @@ import App from '../components/app.vue';
 
 // Init Framework7-Vue Plugin
 Framework7.use(Framework7Vue);
+// List All Used Components
+// Vue.component('f7-', f7);
 
 // Init App
 new Vue({
