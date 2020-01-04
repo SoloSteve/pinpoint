@@ -9,7 +9,7 @@
             <StatusBarIcon/>
         </f7-nav-title>
         <f7-nav-right>
-            <GroupButton link="/group/"/>
+            <GroupButton :count="groupCount" link="/group/"/>
         </f7-nav-right>
     </f7-navbar>
 </template>
@@ -35,6 +35,10 @@
         required: true
       },
       magnetometer: {
+        type: Number,
+        required: true
+      },
+      groupCount: {
         type: Number,
         required: true
       }

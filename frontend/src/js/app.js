@@ -1,15 +1,11 @@
 // Import Vue
 import Vue from 'vue';
-
-
 // Import Framework7
 // Import WITHOUT Bundle: import Framework7 from 'framework7/framework7-lite.esm.js';
 import Framework7 from "framework7/framework7-lite.esm.bundle";
-
 // Import Framework7-Vue Plugin
 // Import All NEEDED components: import Framework7Vue, {f7App} from 'framework7-vue';
 import Framework7Vue from "framework7-vue/framework7-vue.esm.bundle";
-
 // Import Framework7 Styles
 // Import ONLY NEEDED: import 'framework7/css/framework7.css';
 import 'framework7/css/framework7.bundle.min.css';
@@ -19,6 +15,19 @@ import '../css/app.css';
 import '../css/font-awesome-all.css';
 // Import App Component
 import App from '../components/app.vue';
+// Import Leaflet
+import {Icon} from 'leaflet'
+import 'leaflet/dist/leaflet.css';
+
+// this part resolve an issue where the markers would not appear
+delete Icon.Default.prototype._getIconUrl;
+
+// todo: what does this do?
+Icon.Default.mergeOptions({
+  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+  iconUrl: require('leaflet/dist/images/marker-icon.png'),
+  shadowUrl: require('leaflet/dist/images/marker-shadow.png')
+});
 
 // Init Framework7-Vue Plugin
 Framework7.use(Framework7Vue);
