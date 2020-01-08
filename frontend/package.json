@@ -54,8 +54,10 @@
     "framework7-vue": "^5.2.0",
     "leaflet": "^1.6.0",
     "lodash": "^4.17.15",
+    "odometer": "^0.4.8",
     "template7": "^1.4.2",
     "vue": "^2.6.11",
+    "vue-odometer": "^1.0.2",
     "vue2-leaflet": "^2.4.2"
   },
   "devDependencies": {

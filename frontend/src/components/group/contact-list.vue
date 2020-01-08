@@ -7,10 +7,11 @@
                 :label="true"
         />
         <f7-list contacts-list>
-            <f7-list-group v-for="letterGroup in Object.entries(contacts)">
+            <f7-list-group :key="letterGroup[0]" v-for="letterGroup in Object.entries(contacts)">
                 <f7-list-item :title="letterGroup[0]" group-title/>
                 <f7-list-item
                         v-for="user in letterGroup[1]"
+                        :key="user.id"
                         :title="capitalize(user.name)"
                         footer="Online"
                         class="user-container"

@@ -16,17 +16,16 @@ import '../css/font-awesome-all.css';
 // Import App Component
 import App from '../components/app.vue';
 // Import Leaflet
-import {Icon} from 'leaflet'
+import {Icon} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 // this part resolve an issue where the markers would not appear
 delete Icon.Default.prototype._getIconUrl;
 
-// todo: what does this do?
 Icon.Default.mergeOptions({
-  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
-  iconUrl: require('leaflet/dist/images/marker-icon.png'),
-  shadowUrl: require('leaflet/dist/images/marker-shadow.png')
+  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png').default,
+  iconUrl: require('leaflet/dist/images/marker-icon.png').default,
+  shadowUrl: require('leaflet/dist/images/marker-shadow.png').default
 });
 
 // Init Framework7-Vue Plugin

@@ -29,7 +29,8 @@
         groupCount: 2,
 
         users: [
-          {id: "123", name: "Dude", location: {lat: [32.480180, 34.988890]}}
+          {id: "123", name: "Anonymous", location: {lat: 32.480180, lng: 34.988890}},
+          {id: "321", name: "Anon", location: {lat: 45.480180, lng: 30.988890}}
         ]
       }
     }

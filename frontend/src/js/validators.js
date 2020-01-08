@@ -1,0 +1,1 @@
+// Used for prop validation for complex types like users and their location.

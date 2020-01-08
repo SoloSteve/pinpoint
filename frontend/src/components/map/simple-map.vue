@@ -11,18 +11,27 @@
                 :url="tileProvider.url"
                 layer-type="base"
         />
+        <user-marker
+                :key="user.id"
+                :user="user"
+                v-for="user in users"
+        />
     </l-map>
 </template>
 
 <script>
-  import {LMap, LTileLayer} from 'vue2-leaflet';
+  import {LIcon, LMap, LMarker, LTileLayer} from 'vue2-leaflet';
   import {staticOptions, tileProvider} from './map-options';
+  import UserMarker from "./user-marker";
 
   export default {
     name: "simple-map",
     components: {
+      UserMarker,
       LMap,
-      LTileLayer
+      LTileLayer,
+      LMarker,
+      LIcon,
     },
     props: {
       users: {
