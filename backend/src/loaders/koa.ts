@@ -11,17 +11,15 @@ import * as Router from "@koa/router";
 
 import env from "../config/environment";
 
-const app = new Koa();
-const router = new Router({
-  sensitive: true,
-  methods: ["get"],
-  prefix: `/${env.INSTANCE_ID}`
-});
 
-app.proxy = env.BEHIND_PROXY;
+export default (app: Koa): Router => {
+  const router = new Router({
+    sensitive: true,
+    methods: ["get"],
+    prefix: env.NODE_ENV == "development" ? undefined : `/${env.INSTANCE_ID}`,
+  });
 
-app.use(router.routes());
+  app.proxy = env.BEHIND_PROXY;
 
-app.listen(env.HTTP_PORT);
-
-export { app, router };
+  return router;
+};

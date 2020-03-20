@@ -30,15 +30,31 @@ const env = {
   NODE_ENV: "development",
   BEHIND_PROXY: false,
   INSTANCE_ID: "dev",
-  HTTP_PORT: 80
+  HTTP_PORT: 8040,
+  APP_URL: "http://localhost:8080",
 };
 
 // Get from ENV or use default value
-Object.entries(env).forEach(([key, value]) => process.env[key] || value);
+// ENV variables are parsed JSON style
+Object.entries(env).map(([key, value]) => {
+  let environmentValue = process.env[key];
+
+  if (environmentValue === undefined) {
+    return value;
+  }
+
+  try {
+    value = JSON.parse(environmentValue);
+  } catch (e) {
+    console.warn(`Unable to parse '${key}=${environmentValue}'`);
+    value = environmentValue;
+  }
+  return value;
+});
 
 // Log the resulting env
 Object.entries(env).forEach(([key, value]) =>
-  console.log(`ENV: ${key}="${value}"`)
+  console.log(`ENV: ${key}=${JSON.stringify(value)}`)
 );
 
 export default env;

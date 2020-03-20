@@ -16,6 +16,7 @@
     "@types/koa": "^2.0.49",
     "@types/koa__router": "^8.0.0",
     "@types/lodash": "^4.14.141",
+    "@types/nanoid": "^2.1.0",
     "@types/node": "^12.7.5",
     "@typescript-eslint/eslint-plugin": "^2.3.0",
     "@typescript-eslint/parser": "^2.3.0",
@@ -32,6 +33,8 @@
     "dotenv": "latest",
     "koa": "latest",
     "lodash": "latest",
-    "winston": "latest"
+    "winston": "latest",
+    "nanoid": "latest",
+    "http-status-codes": "latest"
   }
 }
