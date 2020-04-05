@@ -1,4 +1,4 @@
-import Room from "../models/room";
+import Room from "../services/room";
 import {defaultRoomOptions} from "../config/room";
 import env from "../config/environment";
 import * as HttpStatus from "http-status-codes";

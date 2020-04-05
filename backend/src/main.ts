@@ -3,7 +3,9 @@ import * as http from "http";
 import env from "./config/environment";
 import logger from "./loaders/logger";
 import loadKoa from "./loaders/koa";
+import loadWebsocket from "./loaders/websocket";
 import roomLoader from "./api/room";
+import websocketLoader from "./api/websocket";
 
 async function main() {
   const app = new Koa();
@@ -13,7 +15,11 @@ async function main() {
 
   app.use(router.routes());
 
-  let server = http.createServer(app.callback());
+  const server = http.createServer(app.callback());
+  const wss = loadWebsocket(server);
+
+  websocketLoader(wss);
+
   server.listen({
     port: env.HTTP_PORT,
     host: "127.0.0.1",
