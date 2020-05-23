@@ -6,6 +6,13 @@ export const roomSchema: JSONSchema4 = {
   properties: {
     users: {
       type: "object",
+      additionalProperties: {
+        type: "object"
+      }
     }
   }
 };
+
+export const defaultRoom = {
+  users: {}
+}

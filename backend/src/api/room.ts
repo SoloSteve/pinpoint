@@ -20,7 +20,7 @@ export default (router: Router) => {
       return;
     }
 
-    let roomUID = roomId.split("-", 2)[1];
+    let roomUID = roomId.substring(roomId.indexOf("-") + 1);
     let room = Room.get(roomUID);
 
     if (room === null) {

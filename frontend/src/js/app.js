@@ -19,6 +19,9 @@ import App from '../components/app.vue';
 import {Icon} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
+//Import Store
+import store from "../store";
+
 // this part resolve an issue where the markers would not appear
 delete Icon.Default.prototype._getIconUrl;
 
@@ -37,7 +40,7 @@ Framework7.use(Framework7Vue);
 new Vue({
   el: '#app',
   render: (h) => h(App),
-
+  store,
   // Register App Component
   components: {
     app: App

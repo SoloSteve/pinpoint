@@ -1,17 +1,17 @@
 <template>
-    <f7-page name="home">
-        <StatusBar :connection="connection"
-                   :gps="gps"
-                   :group-count="groupCount"
-                   :magnetometer="magnetometer"
-                   :name="username"
-        />
-        <div class="content-container">
-            <div class="elevation-4 map-container">
-                <SimpleMap :users="users"/>
-            </div>
-        </div>
-    </f7-page>
+  <f7-page name="home">
+    <StatusBar :connection="connection"
+               :gps="gps"
+               :group-count="groupCount"
+               :magnetometer="magnetometer"
+               :name="username"
+    />
+    <div class="content-container">
+      <div class="elevation-4 map-container">
+        <SimpleMap :users="users"/>
+      </div>
+    </div>
+  </f7-page>
 </template>
 
 <script>
@@ -38,19 +38,19 @@
 </script>
 
 <style scoped>
-    .content-container {
-        height: calc(100% - var(--f7-navbar-height));
-        width: 100%;
-    }
+  .content-container {
+    height: calc(100% - var(--f7-navbar-height));
+    width: 100%;
+  }
 
-    .map-container {
-        position: absolute;
-        top: calc(1.5% + var(--f7-navbar-height));
-        width: 95%;
-        /*bottom: calc(2.5% + var(--f7-toolbar-height));*/
-        bottom: calc(2.5%);
-        right: 2.5%;
+  .map-container {
+    position: absolute;
+    top: calc(1.5% + var(--f7-navbar-height));
+    width: 95%;
+    /*bottom: calc(2.5% + var(--f7-toolbar-height));*/
+    bottom: calc(2.5%);
+    right: 2.5%;
 
-        border-radius: 5px;
-    }
+    border-radius: 5px;
+  }
 </style>

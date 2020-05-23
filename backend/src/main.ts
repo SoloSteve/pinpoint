@@ -5,7 +5,7 @@ import logger from "./loaders/logger";
 import loadKoa from "./loaders/koa";
 import loadWebsocket from "./loaders/websocket";
 import roomLoader from "./api/room";
-import websocketLoader from "./api/websocket";
+import websocketApi from "./api/websocket";
 
 async function main() {
   const app = new Koa();
@@ -18,7 +18,7 @@ async function main() {
   const server = http.createServer(app.callback());
   const wss = loadWebsocket(server);
 
-  websocketLoader(wss);
+  websocketApi(wss);
 
   server.listen({
     port: env.HTTP_PORT,

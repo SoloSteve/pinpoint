@@ -1,14 +1,17 @@
 <template>
-    <f7-app :params="f7params">
-        <!-- Your main view, should have "view-main" class -->
-        <f7-view main class="safe-areas" url="/"/>
-    </f7-app>
+  <f7-app :params="f7params">
+    <Room/>
+    <!-- Your main view, should have "view-main" class -->
+    <f7-view main class="safe-areas" url="/"/>
+  </f7-app>
 </template>
 <script>
 
   import routes from '../js/routes.js';
+  import Room from "./room";
 
   export default {
+    components: {Room},
     data() {
       return {
         // Framework7 Parameters
