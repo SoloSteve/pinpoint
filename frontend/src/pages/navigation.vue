@@ -1,10 +1,10 @@
 <template>
   <f7-page name="home">
-    <StatusBar :connection="connection"
-               :gps="gps"
-               :group-count="groupCount"
-               :magnetometer="magnetometer"
-               :name="username"
+    <StatusBar :connection="user.connection"
+               :gps="user.gps"
+               :group-count="users.length - 1"
+               :magnetometer="user.magnetometer"
+               :name="user.name"
     />
     <div class="content-container">
       <div class="elevation-4 map-container">
@@ -21,19 +21,16 @@
   export default {
     components: {SimpleMap, StatusBar},
     data() {
-      return {
-        username: "Anonymous",
-        connection: 0,
-        gps: 0,
-        magnetometer: 0,
-        groupCount: 2,
-      }
+      return {}
     },
     computed: {
       users() {
         return Object.entries(this.$store.get("room-state/room@users")).map(([key, value]) => {
           return {id: key, ...value};
         });
+      },
+      user() {
+        return this.$store.get("room-state/room@users.user");
       }
     }
   }
@@ -50,7 +47,7 @@
     top: calc(1.5% + var(--f7-navbar-height));
     width: 95%;
     /*bottom: calc(2.5% + var(--f7-toolbar-height));*/
-    bottom: calc(2.5%);
+    bottom: calc(1.5%);
     right: 2.5%;
 
     border-radius: 5px;

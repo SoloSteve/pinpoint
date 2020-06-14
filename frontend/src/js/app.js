@@ -18,7 +18,6 @@ import App from '../components/app.vue';
 // Import Leaflet
 import {Icon} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-
 //Import Store
 import store from "../store";
 
@@ -45,4 +44,16 @@ new Vue({
   components: {
     app: App
   },
+});
+
+// PWA
+window.deferredPrompt = null;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  console.log("before install prompt");
+  // Prevent Chrome 67 and earlier from automatically showing the prompt
+  e.preventDefault();
+  // Stash the event so it can be triggered later.
+  window.deferredPrompt = e;
+  window.dispatchEvent(new Event("ready-for-pwa"))
 });

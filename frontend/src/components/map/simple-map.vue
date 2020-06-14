@@ -11,6 +11,7 @@
   >
     <l-tile-layer
         :attribution="tileProvider.attribution"
+        :options="{maxNativeZoom: 18, maxZoom: mapProperties.maxZoom}"
         :url="tileProvider.url"
         layer-type="base"
     />
@@ -49,11 +50,10 @@
         map: null,
         mapOptions: staticOptions,
         tileProvider: tileProvider,
-        doubleClickZoom: false,
         mapProperties: {
           zoom: 3,
           minZoom: 2,
-          maxZoom: 18,
+          maxZoom: 19,
           center: [30, 20]
         },
         snap: {
@@ -95,7 +95,11 @@
 
     mounted() {
       this.$nextTick(() => {
-        this.map = this.$refs.map.mapObject
+        this.map = this.$refs.map.mapObject;
+
+        // A patch for leaflet.marker.slideTo
+        this.map.doubleClickZoom.enable = () => {
+        };
       });
     }
   }

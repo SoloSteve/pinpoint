@@ -19,6 +19,7 @@
 <script>
   import {LIcon} from 'vue2-leaflet';
   import LMovingMarker from 'vue2-leaflet-movingmarker';
+  import {distanceTo} from "../../js/utils";
 
   export default {
     name: "user-marker",
@@ -38,11 +39,15 @@
       lng: {
         type: Number,
         required: true
+      },
+      speed: {
+        type: Number,
       }
     },
     data: function () {
       return {
-        marker: null
+        marker: null,
+        moveLength: 0
       };
     },
     computed: {
@@ -50,13 +55,20 @@
         return [this.lat, this.lng];
       },
       duration() {
-        return 200;
+        const speed = this.speed || 1.4;
+        return Math.min((this.moveLength / speed) * 1000, 2000); // In ms
       }
     },
-
+    watch: {
+      latLng(val, oldVal) {
+        this.moveLength = distanceTo(val[0], val[1], oldVal[0], oldVal[1]);
+      }
+    },
     mounted() {
       this.$nextTick(() => {
         this.marker = this.$refs.marker.mapObject;
+        this.marker.setDuration = () => {
+        };
       });
     }
   }

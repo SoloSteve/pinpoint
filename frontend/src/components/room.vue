@@ -5,7 +5,7 @@
 <script>
   import io from "socket.io-client";
   import {getCookie, merge} from "../js/utils";
-  import {get} from "vuex-pathify";
+  import {get, sync} from "vuex-pathify";
   import calcDiff from "deep-diff";
 
   export default {
@@ -14,18 +14,19 @@
       return {
         roomId: null,
         socket: null,
+        joined: false,
         previousValue: {}
       }
     },
     computed: {
       userData: get("room-state/room@users.user"),
-      userId: get("room-state/room@userId")
+      userId: sync("room-state/room@userId")
     },
     watch: {
       userData: {
         deep: true,
         handler(val) {
-          if (!this.socket || !this.socket.connected || !this.roomId) return;
+          if (!this.socket || !this.socket.connected || !this.roomId || !this.userId) return;
           const differences = calcDiff(this.previousValue, val);
           if (!differences) return;
           differences.forEach((difference) => {
@@ -34,7 +35,7 @@
                 this.socket.emit("update-room", {
                   change: "merge",
                   path: ["users", this.userId, ...difference.path],
-                  value: difference.lhs
+                  value: difference.rhs
                 });
                 break;
               case "N":
@@ -64,6 +65,7 @@
 
       this.socket.on("connect", () => {
         this.socket.emit("join", {roomId: this.roomId});
+        this.$store.set("room-state/room@users.user.connection", 0);
       });
 
       this.socket.on("connect_error", () => {
@@ -75,16 +77,13 @@
       });
 
       this.socket.on("room-data", (data) => {
-        console.log(data);
         const id = data["userId"];
-        const currentUserData = this.$store.get("room-state/room@users.user");
-        data["users"]["user"] = {...currentUserData, ...data["users"][id]};
+        data["users"]["user"] = this.$store.get("room-state/room@users.user");
         delete data["users"][id];
         this.$store.set("room-state/room", data);
       });
 
       this.socket.on("update", (data) => {
-        console.debug(data);
         let path;
         let currentValue;
         switch (data.type) {
@@ -115,6 +114,12 @@
         if (Math.abs(previousLatency - latency) >= 10) {
           this.$store.set("room-state/room@users.user.latency", latency);
         }
+        this.$store.set("room-state/room@users.user.connection", (latency >= 2000) ? 1 : 0);
+      });
+
+      this.socket.on("disconnect", () => {
+        this.userId = null;
+        this.$store.set("room-state/room@users.user.connection", 2);
       });
     },
     destroyed() {

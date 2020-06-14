@@ -33,3 +33,32 @@ export function merge(source, addition) {
     return addition;
   }
 }
+
+export function bearingTo(lat1, lng1, lat2, lng2) {
+  let dLon = toRad(lng2 - lng1);
+  lat1 = toRad(lat1);
+  lat2 = toRad(lat2);
+  let y = Math.sin(dLon) * Math.cos(lat2);
+  let x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon);
+  let rad = Math.atan2(y, x);
+  let bearing = toDeg(rad);
+  return (bearing + 360) % 360;
+}
+
+export function distanceTo(lat1, lon1, lat2, lon2) {
+  let R = 6371; // Radius of the earth in km
+  let dLat = toRad(lat2 - lat1);  // Javascript functions in radians
+  let dLon = toRad(lon2 - lon1);
+  let a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  let d = R * c; // Distance in km
+  return d * 1000;//In Meters
+}
+
+function toRad(deg) {
+  return deg * Math.PI / 180;
+}
+
+function toDeg(rad) {
+  return rad * 180 / Math.PI;
+}

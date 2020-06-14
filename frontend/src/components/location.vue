@@ -63,13 +63,14 @@
 
       setPermission(value) {
         if (value) this.startGeolocationWatch();
+        this.$store.set("room-state/room@users.user.gps", 3);
         this.popupOpened = false;
       },
 
       startGeolocationWatch() {
         if (this.watchId) navigator.geolocation.clearWatch(this.watchId);
         this.watchId = navigator.geolocation.watchPosition((position) => {
-          // store.commit("localState/setFix", {status: true, info: lang.gps.fix["fixed"]});
+          this.$store.set("room-state/room@users.user.gps", 0);
           this.$store.set(`room-state/room@users.user.position`, {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
@@ -78,17 +79,21 @@
             speed: position.coords.speed || null
           });
         }, (positionError) => {
+
           switch (positionError.code) {
             case positionError.PERMISSION_DENIED:
+              this.$store.set("room-state/room@users.user.gps", 2);
               // store.commit("localState/setFix", {status: false, info: lang.gps.fix["no-permission"]});
               break;
             case positionError.POSITION_UNAVAILABLE:
+              this.$store.set("room-state/room@users.user.gps", 1);
               // store.commit("localState/setFix", {
               //   status: false,
               //   info: lang.gps.fix["internal-error"]
               // });
               break;
             case positionError.TIMEOUT:
+              this.$store.set("room-state/room@users.user.gps", 1);
               // store.commit("localState/setFix", {status: false, info: lang.gps.fix["timeout-error"]});
               break;
           }

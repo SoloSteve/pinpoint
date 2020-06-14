@@ -1,6 +1,7 @@
 import NavigationPage from '../pages/navigation.vue';
 import NotFoundPage from '../pages/404.vue';
 import GroupPage from '../pages/group';
+import SettingsPage from '../pages/settings';
 
 const routes = [
   {
@@ -10,6 +11,10 @@ const routes = [
   {
     path: '/group/',
     component: GroupPage,
+  },
+  {
+    path: '/settings/',
+    component: SettingsPage,
   },
   {
     path: '(.*)',

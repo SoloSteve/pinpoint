@@ -6,7 +6,11 @@ const state = {
     users: {
       user: {
         name: "You",
-        latency: 0
+        icon: 0,
+        latency: 0,
+        connection: 2,
+        gps: 2,
+        magnetometer: 1
       }
     }
   }
