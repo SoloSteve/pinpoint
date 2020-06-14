@@ -1,6 +1,6 @@
 import {RoomOptions} from "../types/room";
 import {nanoid} from "nanoid/non-secure";
-import {LocalMemory, PathPermission, PermissionType, Safebox, SafeboxAgent} from "safebox";
+import {LocalMemory, Path, PathPermission, PermissionType, Safebox, SafeboxAgent} from "safebox";
 import {defaultRoom, roomSchema} from "../models/room";
 
 export default class Room {
@@ -31,17 +31,23 @@ export default class Room {
   }
 
   public joinRoom(joinerId: string): SafeboxAgent {
-    this.safebox.create(["users", joinerId], {});
+    this.safebox.set(["users", joinerId], {});
     return this.safebox.getAgent(
       new PathPermission(
         ["users", joinerId],
         PermissionType.GET,
-        PermissionType.MUTATE
+        PermissionType.SET,
       ),
       new PathPermission(
         ["users"],
         PermissionType.GET
       )
     );
+  }
+
+  public leaveRoom(leaverId: string): Path {
+    const userPath = ["users", leaverId];
+    this.safebox.delete(userPath);
+    return userPath;
   }
 }

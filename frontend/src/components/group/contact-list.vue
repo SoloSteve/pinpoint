@@ -1,32 +1,32 @@
 <template>
-    <div>
-        <f7-list-index
-                indexes="auto"
-                list-el=".list.contacts-list"
-                :scroll-list="true"
-                :label="true"
-        />
-        <f7-list contacts-list>
-            <f7-list-group :key="letterGroup[0]" v-for="letterGroup in Object.entries(contacts)">
-                <f7-list-item :title="letterGroup[0]" group-title/>
-                <f7-list-item
-                        v-for="user in letterGroup[1]"
-                        :key="user.id"
-                        :title="capitalize(user.name)"
-                        footer="Online"
-                        class="user-container"
-                        accordion-item
-                >
-                    <div slot="media" class="avatar-container">
-                        <img src="/static/icons/avatars/standing_man.svg" alt="User"/>
-                    </div>
-                    <f7-accordion-content class="stat-section">
-                        <statistics />
-                    </f7-accordion-content>
-                </f7-list-item>
-            </f7-list-group>
-        </f7-list>
-    </div>
+  <div>
+    <f7-list-index
+        :label="true"
+        :scroll-list="true"
+        indexes="auto"
+        list-el=".list.contacts-list"
+    />
+    <f7-list contacts-list>
+      <f7-list-group :key="letterGroup[0]" v-for="letterGroup in Object.entries(contacts)">
+        <f7-list-item :title="letterGroup[0]" group-title/>
+        <f7-list-item
+            :key="user.id"
+            :title="capitalize(user.name)"
+            accordion-item
+            class="user-container"
+            footer="Online"
+            v-for="user in letterGroup[1]"
+        >
+          <div class="avatar-container" slot="media">
+            <img alt="User" src="/static/icons/avatars/standing_man.svg"/>
+          </div>
+          <f7-accordion-content class="stat-section">
+            <statistics/>
+          </f7-accordion-content>
+        </f7-list-item>
+      </f7-list-group>
+    </f7-list>
+  </div>
 </template>
 
 <script>
@@ -66,26 +66,35 @@
 </script>
 
 <style scoped>
-    .list-index {
-        position: fixed;
-    }
+  .list-index {
+    position: fixed;
+  }
 
-    .user-container {
-        background-color: #eeeeee;
-        border-bottom: #00000033 thin solid;
-    }
+  .user-container {
+    background-color: #eeeeee;
+  }
 
-    .avatar-container {
-        background-color: lightgray;
-        border-radius: 10px;
+  .avatar-container {
+    background-color: lightgray;
+    border-radius: 10px;
 
-        display: flex;
-        justify-content: center;
+    display: flex;
+    justify-content: center;
 
-        padding: 2px 0;
-    }
+    padding: 2px 0;
+  }
 
-    .item-inner:after {
-        background-color: black !important;
-    }
+</style>
+<style>
+  .list-group > ul:after {
+    background-color: black;
+  }
+
+  .item-inner:after {
+    background-color: gray !important;
+  }
+
+  .accordion-item-opened {
+    background-color: lightgoldenrodyellow !important;
+  }
 </style>

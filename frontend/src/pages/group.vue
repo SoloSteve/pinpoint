@@ -61,7 +61,147 @@
               connection: "Online",
               location: 0,
             }
-          }
+          },
+          {
+            name: "Dave",
+            location: {
+              lat: 0,
+              lng: 0,
+              speed: 4,
+              accuracy: 9,
+              heading: 47
+            },
+            status: {
+              connection: "Online",
+              location: 0,
+            }
+          },
+          {
+            name: "Justin",
+            location: {
+              lat: 0,
+              lng: 0,
+              speed: 4,
+              accuracy: 9,
+              heading: 47
+            },
+            status: {
+              connection: "Online",
+              location: 0,
+            }
+          },
+          {
+            name: "Andrew",
+            location: {
+              lat: 0,
+              lng: 0,
+              speed: 4,
+              accuracy: 9,
+              heading: 47
+            },
+            status: {
+              connection: "Online",
+              location: 0,
+            }
+          },
+          {
+            name: "Steve",
+            location: {
+              lat: 0,
+              lng: 0,
+              speed: 4,
+              accuracy: 9,
+              heading: 47
+            },
+            status: {
+              connection: "Online",
+              location: 0,
+            }
+          },
+          {
+            name: "Kevin",
+            location: {
+              lat: 0,
+              lng: 0,
+              speed: 4,
+              accuracy: 9,
+              heading: 47
+            },
+            status: {
+              connection: "Online",
+              location: 0,
+            }
+          },
+          {
+            name: "Joe",
+            location: {
+              lat: 0,
+              lng: 0,
+              speed: 4,
+              accuracy: 9,
+              heading: 47
+            },
+            status: {
+              connection: "Online",
+              location: 0,
+            }
+          },
+          {
+            name: "Connor",
+            location: {
+              lat: 0,
+              lng: 0,
+              speed: 4,
+              accuracy: 9,
+              heading: 47
+            },
+            status: {
+              connection: "Online",
+              location: 0,
+            }
+          },
+          {
+            name: "John",
+            location: {
+              lat: 0,
+              lng: 0,
+              speed: 4,
+              accuracy: 9,
+              heading: 47
+            },
+            status: {
+              connection: "Online",
+              location: 0,
+            }
+          },
+          {
+            name: "Bill",
+            location: {
+              lat: 0,
+              lng: 0,
+              speed: 4,
+              accuracy: 9,
+              heading: 47
+            },
+            status: {
+              connection: "Online",
+              location: 0,
+            }
+          },
+          {
+            name: "Sam",
+            location: {
+              lat: 0,
+              lng: 0,
+              speed: 4,
+              accuracy: 9,
+              heading: 47
+            },
+            status: {
+              connection: "Online",
+              location: 0,
+            }
+          },
         ]
       }
     },
@@ -80,7 +220,7 @@
     computed: {
       roomId() {
         return getCookie("roomId") || "";
-      }
+      },
     }
   }
 </script>

@@ -1,6 +1,7 @@
 <template>
   <f7-app :params="f7params">
     <Room/>
+    <Location/>
     <!-- Your main view, should have "view-main" class -->
     <f7-view main class="safe-areas" url="/"/>
   </f7-app>
@@ -9,9 +10,10 @@
 
   import routes from '../js/routes.js';
   import Room from "./room";
+  import Location from "./location";
 
   export default {
-    components: {Room},
+    components: {Location, Room},
     data() {
       return {
         // Framework7 Parameters

@@ -1,3 +1,5 @@
+import {cloneDeep, isObjectLike, merge as _merge} from "lodash";
+
 export function getCookie(key) {
   let c = document.cookie, v = 0, cookies = {};
   if (document.cookie.match(/^\s*\$Version=(?:"1"|1);\s*(.*)/)) {
@@ -18,4 +20,16 @@ export function getCookie(key) {
     });
   }
   return cookies[key] || null;
+}
+
+/**
+ * Returns the merged object or value
+ */
+export function merge(source, addition) {
+  if (isObjectLike(addition) && isObjectLike(source)) {
+    source = cloneDeep(source);
+    return _merge(source, addition);
+  } else {
+    return addition;
+  }
 }

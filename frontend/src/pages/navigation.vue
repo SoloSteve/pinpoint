@@ -27,11 +27,13 @@
         gps: 0,
         magnetometer: 0,
         groupCount: 2,
-
-        users: [
-          {id: "123", name: "Anonymous", location: {lat: 32.480180, lng: 34.988890}},
-          {id: "321", name: "Anon", location: {lat: 45.480180, lng: 30.988890}}
-        ]
+      }
+    },
+    computed: {
+      users() {
+        return Object.entries(this.$store.get("room-state/room@users")).map(([key, value]) => {
+          return {id: key, ...value};
+        });
       }
     }
   }

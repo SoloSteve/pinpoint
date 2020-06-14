@@ -7,7 +7,52 @@ export const roomSchema: JSONSchema4 = {
     users: {
       type: "object",
       additionalProperties: {
-        type: "object"
+        type: "object",
+        properties: {
+          name: {
+            type: "string",
+            minLength: 2,
+            maxLength: 25
+          },
+          latency: {
+            type: "integer",
+            minimum: 0,
+            maximum: 5000,
+          },
+          position: {
+            type: "object",
+            required: ["lat", "lng"],
+            properties: {
+              lat: {
+                type: "number",
+                minimum: -90,
+                maximum: 90
+              },
+              lng: {
+                type: "number",
+                minimum: -180,
+                maximum: 180
+              },
+              accuracy: {
+                type: "number",
+                minimum: 0
+              },
+              heading: {
+                type: ["number", "null"],
+                minimum: 0,
+                maximum: 359
+              },
+              speed: {
+                type: ["number", "null"],
+                minimum: 0
+              },
+              altitudeAccuracy: {
+                type: ["number", "null"],
+                minimum: 0
+              }
+            }
+          }
+        }
       }
     }
   }

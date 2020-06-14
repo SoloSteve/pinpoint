@@ -9,8 +9,11 @@ export const staticOptions = {
 };
 
 export const tileProvider = {
-  "id": "mapbox.streets",
+  "id": "mapbox/streets-v11",
   "name": "OSM",
-  "url": `https://api.tiles.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=${accessToken}`,
+  "url": `https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=${accessToken}`,
+  "tileSize": 512,
+  "maxZoom": "18",
+  "zoomOffset": -1,
   "attribution": '©<a href="https://www.mapbox.com/about/maps/" target="_blank" rel="noreferrer">Mapbox</a> ©<a href="http://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank" rel="noreferrer">Improve this map</a></strong>'
 };

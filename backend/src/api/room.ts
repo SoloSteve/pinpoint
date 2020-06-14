@@ -3,6 +3,7 @@ import {defaultRoomOptions} from "../config/room";
 import env from "../config/environment";
 import * as HttpStatus from "http-status-codes";
 import * as Router from "@koa/router";
+import logger from "../loaders/logger";
 
 export default (router: Router) => {
   router.get("/create", (context) => {
@@ -35,5 +36,9 @@ export default (router: Router) => {
     });
 
     context.redirect(env.APP_URL);
+
+    logger.info("Created New Room", {
+      roomId
+    });
   });
 }

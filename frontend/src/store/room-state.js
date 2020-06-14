@@ -1,9 +1,14 @@
 import {make} from "vuex-pathify";
-import Vue from "vue";
 
 const state = {
   room: {
-    users: {}
+    userId: null,
+    users: {
+      user: {
+        name: "You",
+        latency: 0
+      }
+    }
   }
 }
 

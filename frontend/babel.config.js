@@ -17,5 +17,10 @@ module.exports = {
   plugins: [
     'transform-vue-jsx',
     '@babel/plugin-syntax-dynamic-import',
+    '@babel/plugin-transform-regenerator',
+    ['@babel/plugin-transform-runtime',
+      {
+        "regenerator": true,
+      }]
   ],
 };
