@@ -5,7 +5,7 @@ const state = {
     userId: null,
     users: {
       user: {
-        name: "You",
+        name: "Person",
         icon: 0,
         latency: 0,
         connection: 2,

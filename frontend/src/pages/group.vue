@@ -16,9 +16,9 @@
         <f7-icon icon="fas fa-user-plus"/>
         Invite
       </f7-block>
-      <f7-link class="no-caps sms" icon="fas fa-sms" text="SMS"/>
-      <f7-link class="no-caps whatsapp" icon="fab fa-whatsapp" text="WhatsApp"/>
-      <f7-link class="no-caps fb-messenger" icon="fab fa-facebook-messenger" text="Messenger"/>
+      <f7-link @click="inviteViaSms" class="no-caps sms" icon="fas fa-sms" text="SMS"/>
+      <f7-link @click="inviteViaWhatsapp" class="no-caps whatsapp" icon="fab fa-whatsapp" text="WhatsApp"/>
+      <!--      <f7-link class="no-caps fb-messenger" icon="fab fa-facebook-messenger" text="Messenger"/>-->
     </f7-toolbar>
 
   </f7-page>
@@ -32,178 +32,7 @@
     name: "group",
     components: {ContactList},
     data() {
-      return {
-        users: [
-          {
-            name: "Abby",
-            location: {
-              lat: 0,
-              lng: 0,
-              speed: 4,
-              accuracy: 9,
-              heading: 47
-            },
-            status: {
-              connection: "Online",
-              location: 0,
-            }
-          },
-          {
-            name: "Gabby",
-            location: {
-              lat: 0,
-              lng: 0,
-              speed: 4,
-              accuracy: 9,
-              heading: 47
-            },
-            status: {
-              connection: "Online",
-              location: 0,
-            }
-          },
-          {
-            name: "Dave",
-            location: {
-              lat: 0,
-              lng: 0,
-              speed: 4,
-              accuracy: 9,
-              heading: 47
-            },
-            status: {
-              connection: "Online",
-              location: 0,
-            }
-          },
-          {
-            name: "Justin",
-            location: {
-              lat: 0,
-              lng: 0,
-              speed: 4,
-              accuracy: 9,
-              heading: 47
-            },
-            status: {
-              connection: "Online",
-              location: 0,
-            }
-          },
-          {
-            name: "Andrew",
-            location: {
-              lat: 0,
-              lng: 0,
-              speed: 4,
-              accuracy: 9,
-              heading: 47
-            },
-            status: {
-              connection: "Online",
-              location: 0,
-            }
-          },
-          {
-            name: "Steve",
-            location: {
-              lat: 0,
-              lng: 0,
-              speed: 4,
-              accuracy: 9,
-              heading: 47
-            },
-            status: {
-              connection: "Online",
-              location: 0,
-            }
-          },
-          {
-            name: "Kevin",
-            location: {
-              lat: 0,
-              lng: 0,
-              speed: 4,
-              accuracy: 9,
-              heading: 47
-            },
-            status: {
-              connection: "Online",
-              location: 0,
-            }
-          },
-          {
-            name: "Joe",
-            location: {
-              lat: 0,
-              lng: 0,
-              speed: 4,
-              accuracy: 9,
-              heading: 47
-            },
-            status: {
-              connection: "Online",
-              location: 0,
-            }
-          },
-          {
-            name: "Connor",
-            location: {
-              lat: 0,
-              lng: 0,
-              speed: 4,
-              accuracy: 9,
-              heading: 47
-            },
-            status: {
-              connection: "Online",
-              location: 0,
-            }
-          },
-          {
-            name: "John",
-            location: {
-              lat: 0,
-              lng: 0,
-              speed: 4,
-              accuracy: 9,
-              heading: 47
-            },
-            status: {
-              connection: "Online",
-              location: 0,
-            }
-          },
-          {
-            name: "Bill",
-            location: {
-              lat: 0,
-              lng: 0,
-              speed: 4,
-              accuracy: 9,
-              heading: 47
-            },
-            status: {
-              connection: "Online",
-              location: 0,
-            }
-          },
-          {
-            name: "Sam",
-            location: {
-              lat: 0,
-              lng: 0,
-              speed: 4,
-              accuracy: 9,
-              heading: 47
-            },
-            status: {
-              connection: "Online",
-              location: 0,
-            }
-          },
-        ]
-      }
+      return {}
     },
     props: {},
     methods: {
@@ -215,12 +44,32 @@
         range.selectNodeContents(textElement);
         selection.removeAllRanges();
         selection.addRange(range);
+      },
+      inviteViaWhatsapp: function () {
+        window.open(`whatsapp://send?text=${this.inviteString}`);
+      },
+      inviteViaSms: function () {
+        if (this.$f7.device.ios) {
+          window.open(`sms:&body=${this.inviteString}`);
+        } else if (this.$f7.device.android) {
+          window.open(`sms:?body=${this.inviteString}`);
+        } else {
+          this.$f7.dialog.alert("Unable to invite through SMS from this device at this time", "Unsupported Device");
+        }
       }
     },
     computed: {
       roomId() {
         return getCookie("roomId") || "";
       },
+      users() {
+        return Object.entries(this.$store.get("room-state/room@users")).map(([id, user]) => {
+          return {...user, id};
+        }).filter((user) => user.id !== "user");
+      },
+      inviteString: function () {
+        return `Hey, let's find each other! ${window.location.origin}/room/${this.roomId}`;
+      }
     }
   }
 </script>
