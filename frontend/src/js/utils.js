@@ -55,6 +55,53 @@ export function distanceTo(lat1, lon1, lat2, lon2) {
   return d * 1000;//In Meters
 }
 
+/**
+ * @param lat: Latitude
+ * @param lng: Longitude
+ * @param distance: In meters
+ * @param bearing: In degrees
+ */
+export function newPoint(lat, lng, distance, bearing) {
+  const R = 6371;
+  distance = distance / 1000;
+  lat = toRad(lat);
+  lng = toRad(lng);
+  bearing = toRad(bearing);
+
+  let latResult = Math.asin(
+    Math.sin(lat) * Math.cos(distance / R)
+    + Math.cos(lat) * Math.sin(distance / R) * Math.cos(bearing));
+  let lngResult = lng + Math.atan2(Math.sin(bearing) * Math.sin(distance / R) * Math.cos(lat),
+    Math.cos(distance / R) - Math.sin(lat) * Math.sin(latResult));
+
+  return {
+    lat: toDeg(latResult),
+    lng: toDeg(lngResult)
+  }
+}
+
+export function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
+  const angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
+
+  return {
+    x: centerX + (radius * Math.cos(angleInRadians)),
+    y: centerY + (radius * Math.sin(angleInRadians))
+  };
+}
+
+export function describeArc(x, y, radius, startAngle, endAngle) {
+
+  const start = polarToCartesian(x, y, radius, endAngle);
+  const end = polarToCartesian(x, y, radius, startAngle);
+
+  const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
+
+  return [
+    "M", start.x, start.y,
+    "A", radius, radius, 0, largeArcFlag, 0, end.x, end.y
+  ].join(" ");
+}
+
 function toRad(deg) {
   return deg * Math.PI / 180;
 }

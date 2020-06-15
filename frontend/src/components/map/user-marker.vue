@@ -1,36 +1,51 @@
 <template>
-  <l-moving-marker
-      :duration="duration"
-      :lat-lng="latLng"
-      ref="marker"
-  >
-    <l-icon
-        :icon-anchor="[25, 50]"
-        :icon-size="[50, 50]"
+  <div>
+    <l-moving-marker
+        :duration="duration"
+        :lat-lng="latLng"
+        ref="marker"
     >
-      <div class="icon-container">
-        <img alt="(•◡•)" src="/static/icons/avatars/standing_man.svg"/>
-        <div :style="{'font-size': `${12 + 15/name.length}px`}" class="label">{{name}}</div>
-      </div>
-    </l-icon>
-  </l-moving-marker>
+      <l-icon
+          :icon-anchor="[24, 48]"
+          :icon-size="[48, 48]"
+      >
+        <div class="marker-container">
+          <div class="icon-container">
+            <accuracy-direction-circle :accuracyInPixels="accuracySizeInPixels" :direction="heading"/>
+            <img alt="(•◡•)" src="/static/icons/avatars/standing_man.svg" style="position: absolute; z-index: 1000"/>
+          </div>
+          <div
+              :style="{'font-size': `${12 + 15/name.length}px`, backgroundColor: highlightName ? '#fafad2' : undefined}"
+              class="label">{{name}}
+          </div>
+        </div>
+      </l-icon>
+    </l-moving-marker>
+  </div>
 </template>
 
 <script>
-  import {LIcon} from 'vue2-leaflet';
+  import {LCircle, LIcon} from 'vue2-leaflet';
   import LMovingMarker from 'vue2-leaflet-movingmarker';
-  import {distanceTo} from "../../js/utils";
+  import {distanceTo, newPoint} from "../../js/utils";
+  import AccuracyDirectionCircle from "./accuracy-direction-circle";
 
   export default {
     name: "user-marker",
     components: {
+      AccuracyDirectionCircle,
       LMovingMarker,
-      LIcon
+      LIcon,
+      LCircle
     },
     props: {
       name: {
         type: String,
         required: true
+      },
+      highlightName: {
+        type: Boolean,
+        default: false
       },
       lat: {
         type: Number,
@@ -42,6 +57,12 @@
       },
       speed: {
         type: Number,
+      },
+      accuracy: {
+        type: Number
+      },
+      heading: {
+        type: Number
       }
     },
     data: function () {
@@ -57,6 +78,13 @@
       duration() {
         const speed = this.speed || 1.4;
         return Math.min((this.moveLength / speed) * 1000, 2000); // In ms
+      },
+      accuracySizeInPixels() {
+        // This function takes meters and converts it to pixels for the accuracy circle.
+        if (!this.marker || !Number.isFinite(this.accuracy)) return 0;
+        const point1 = this.marker._map.latLngToContainerPoint([0, 0]).y;
+        const point2 = this.marker._map.latLngToContainerPoint(newPoint(0, 0, this.accuracy, 0)).y;
+        return Math.abs(point1 - point2);
       }
     },
     watch: {
@@ -75,14 +103,22 @@
 </script>
 
 <style scoped>
-  .icon-container {
+  .marker-container {
     display: flex;
     justify-content: center;
   }
 
+  .icon-container {
+    display: flex;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+  }
+
   .label {
     position: absolute;
-    top: 100%;
+    top: -25px;
+    z-index: 1001;
     padding: 0 5px;
     margin-right: 5px;
 

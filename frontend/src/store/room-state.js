@@ -3,6 +3,7 @@ import {make} from "vuex-pathify";
 const state = {
   room: {
     userId: null,
+    followingId: null,
     users: {
       user: {
         name: "Person",

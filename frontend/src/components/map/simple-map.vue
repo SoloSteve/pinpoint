@@ -19,7 +19,10 @@
         :key="user.id"
         :lat="user.position.lat"
         :lng="user.position.lng"
+        :accuracy="isUserImportant(user.id) ? user.position.accuracy : null"
         :name="user.name"
+        :heading="user.position.heading"
+        :highlight-name="isUserImportant(user.id)"
         v-for="user in positionedUsers"
     />
   </l-map>
@@ -29,6 +32,7 @@
   import {LIcon, LMap, LMarker, LTileLayer} from 'vue2-leaflet';
   import {staticOptions, tileProvider} from './map-options';
   import UserMarker from "./user-marker";
+  import {get} from "vuex-pathify";
 
   export default {
     name: "simple-map",
@@ -48,6 +52,7 @@
     data: function () {
       return {
         map: null,
+        maxValidAccuracy: 150,
         mapOptions: staticOptions,
         tileProvider: tileProvider,
         mapProperties: {
@@ -63,8 +68,10 @@
       }
     },
     computed: {
+      userId: get("room-state/room@userId"),
+      followingId: get("room-state/room@followingId"),
       positionedUsers() {
-        return this.users.filter(user => user.hasOwnProperty("position"));
+        return this.users.filter(user => user.hasOwnProperty("position") && user.position.accuracy <= this.maxValidAccuracy);
       },
       usersBounds() {
         return this.positionedUsers.map(user => [user.position.lat, user.position.lng]);
@@ -90,6 +97,13 @@
       onDoubleClick() {
         this.snap.enabled = true;
         this.centerMap();
+      },
+
+      isUserImportant(userId) {
+        return (
+          userId === "user"
+          || userId === this.followingId
+        );
       }
     },
 
