@@ -23,6 +23,7 @@
         :name="user.name"
         :heading="user.position.heading"
         :highlight-name="isUserImportant(user.id)"
+        @marker-click="onMarkerClick(user)"
         v-for="user in positionedUsers"
     />
   </l-map>
@@ -104,6 +105,15 @@
           userId === "user"
           || userId === this.followingId
         );
+      },
+
+      onMarkerClick(entity) {
+        if (entity.id === "user") return;
+        if (entity.id === this.$store.get("room-state/room@followingId")) {
+          this.$store.set("room-state/room@followingId", null);
+        } else {
+          this.$store.set("room-state/room@followingId", entity.id);
+        }
       }
     },
 

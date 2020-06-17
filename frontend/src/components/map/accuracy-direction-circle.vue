@@ -1,5 +1,5 @@
 <template>
-  <svg :height="(accuracyInPixels + 2)*2" :style="{bottom: -accuracyInPixels}" :width="(accuracyInPixels + 2)*2"
+  <svg :height="(accuracyInPixels + 2)*2" :width="(accuracyInPixels + 2)*2"
        class="svg" xmlns="http://www.w3.org/2000/svg">
     <circle :cx="accuracyInPixels+2" :cy="accuracyInPixels+2" :r="accuracyInPixels" class="circle"/>
     <path :d="pathDirection" class="direction"></path>
@@ -11,6 +11,7 @@
 
   export default {
     name: "accuracy-direction-circle",
+    components: {},
     props: {
       accuracyInPixels: {
         required: true,

@@ -78,6 +78,7 @@
 
       this.socket.on("room-data", (data) => {
         const id = data["userId"];
+        data = {...this.$store.get("room-state/room"), ...data};
         data["users"]["user"] = this.$store.get("room-state/room@users.user");
         delete data["users"][id];
         this.$store.set("room-state/room", data);

@@ -6,6 +6,7 @@
                :magnetometer="user.magnetometer"
                :name="user.name"
     />
+    <Distance/>
     <div class="content-container">
       <div class="elevation-4 map-container">
         <SimpleMap :users="users"/>
@@ -17,9 +18,10 @@
 <script>
   import StatusBar from "../components/status-bar/status-bar";
   import SimpleMap from "../components/map/simple-map";
+  import Distance from "../components/map/distance";
 
   export default {
-    components: {SimpleMap, StatusBar},
+    components: {Distance, SimpleMap, StatusBar},
     data() {
       return {}
     },

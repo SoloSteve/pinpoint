@@ -1,18 +1,22 @@
 <template>
   <div>
     <l-moving-marker
-        :duration="duration"
+        :duration="2000"
         :lat-lng="latLng"
+        :options="{zIndexOffset: 1000}"
+        @click="onMarkerClick"
+        class="vue-marker"
         ref="marker"
     >
       <l-icon
           :icon-anchor="[24, 48]"
           :icon-size="[48, 48]"
+          class="vue-icon"
       >
         <div class="marker-container">
           <div class="icon-container">
-            <accuracy-direction-circle :accuracyInPixels="accuracySizeInPixels" :direction="heading"/>
-            <img alt="(•◡•)" src="/static/icons/avatars/standing_man.svg" style="position: absolute; z-index: 1000"/>
+            <!--            <accuracy-direction-circle v-show="Number.isFinite(accuracy)" :accuracyInPixels="accuracySizeInPixels" :direction="heading"/>-->
+            <img alt="(•◡•)" class="icon-img" src="/static/icons/avatars/standing_man.svg"/>
           </div>
           <div
               :style="{'font-size': `${12 + 15/name.length}px`, backgroundColor: highlightName ? '#fafad2' : undefined}"
@@ -20,6 +24,20 @@
           </div>
         </div>
       </l-icon>
+    </l-moving-marker>
+    <l-moving-marker
+        :duration="1"
+        :lat-lng="latLngOther"
+        :options="{zIndexOffset: -1}"
+    >
+      <!--      You need to fix the zIndexOffset, and try to get LIcon into accuracy-direction-circle-->
+      <LIcon
+          :icon-anchor="[accuracySizeInPixels + 2, accuracySizeInPixels + 2]"
+          :icon-size="[(accuracySizeInPixels + 2)*2, (accuracySizeInPixels + 2)*2]"
+      >
+        <accuracy-direction-circle :accuracyInPixels="accuracySizeInPixels" :direction="heading"
+                                   v-show="Number.isFinite(accuracy)"/>
+      </LIcon>
     </l-moving-marker>
   </div>
 </template>
@@ -75,6 +93,9 @@
       latLng() {
         return [this.lat, this.lng];
       },
+      latLngOther() {
+        return [this.lat, this.lng];
+      },
       duration() {
         const speed = this.speed || 1.4;
         return Math.min((this.moveLength / speed) * 1000, 2000); // In ms
@@ -90,6 +111,14 @@
     watch: {
       latLng(val, oldVal) {
         this.moveLength = distanceTo(val[0], val[1], oldVal[0], oldVal[1]);
+      }
+    },
+    methods: {
+      onMarkerClick(evt) {
+        const target = evt.originalEvent.target;
+        if (target !== null && target.classList.contains("icon-img") || target.classList.contains("label")) {
+          this.$emit('marker-click');
+        }
       }
     },
     mounted() {
@@ -113,6 +142,10 @@
     justify-content: center;
     width: 48px;
     height: 48px;
+  }
+
+  .icon-img {
+    /*position: absolute;*/
   }
 
   .label {

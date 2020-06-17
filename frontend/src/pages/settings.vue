@@ -126,7 +126,7 @@
     computed: {
       connectionState: get("room-state/room@users.user.connection"),
       latency: get("room-state/room@users.user.latency"),
-      accuracy: get("room-state/room@users.user.position.accuracyInPixels"),
+      accuracy: get("room-state/room@users.user.position.accuracy"),
       locationState: get("room-state/room@users.user.gps"),
       userName: sync("room-state/room@users.user.name"),
       userIcon: sync("room-state/room@users.user.icon"),
