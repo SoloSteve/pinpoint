@@ -23,6 +23,11 @@
     components: {
       IOdometer
     },
+    props: {
+      following: {
+        type: Object
+      }
+    },
     data() {
       return {
         distanceCounter: null,
@@ -48,15 +53,6 @@
         ) return this.maxAccuracy;
 
         return Math.min(user.position.accuracy + following.position.accuracy, this.maxAccuracy);
-      },
-      following() {
-        const followingId = this.$store.get("room-state/room@followingId");
-        if (followingId === null) return null;
-        try {
-          return this.$store.get(`room-state/room@users.${followingId}`);
-        } catch (e) {
-          return null
-        }
       }
     },
     watch: {

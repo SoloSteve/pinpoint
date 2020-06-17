@@ -13,7 +13,7 @@ const transports = [];
 if (env.NODE_ENV === "development") {
   transports.push(
     new winston.transports.Console({
-      format: winston.format.cli(),
+      format: winston.format.simple(),
       level: "debug"
     })
   );

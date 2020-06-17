@@ -25,6 +25,13 @@
         <LocationServicesIcon :state="locationState" :style="{color: stateToColor[locationState]}" size="36px"
                               slot="media"/>
       </f7-list-item>
+      <f7-list-item
+          :text="magnetometerToText.long[magnetometerState]"
+          :title="magnetometerToText.short[magnetometerState]"
+      >
+        <MagnetometerIcon :state="magnetometerState" :style="{color: stateToColor[magnetometerState]}" size="36px"
+                              slot="media"/>
+      </f7-list-item>
     </f7-list>
 
     <f7-block-title>Avatar Customization</f7-block-title>
@@ -82,10 +89,11 @@
   import {get, sync} from "vuex-pathify";
   import LocationServicesIcon from "../components/status-bar/status-icons/location-services-icon";
   import {avatars, pickOrder} from "../js/avatars";
+  import MagnetometerIcon from "../components/status-bar/status-icons/magnetometer-icon";
 
   export default {
     name: "settings",
-    components: {LocationServicesIcon, ConnectionIcon},
+    components: {MagnetometerIcon, LocationServicesIcon, ConnectionIcon},
     data() {
       return {
         shouldShowPwa: false,
@@ -120,6 +128,20 @@
             2: "Your GPS is Disabled, go into your device settings to turn it on, and refresh the page.",
             3: "You denied permission to access your location. Refresh the page or go to the web page settings to re-enable permission prompt."
           }
+        },
+        magnetometerToText: {
+          short: {
+            0: "Working Direction",
+            1: "Inaccurate Direction",
+            2: "Direction Unavailable",
+            3: "No Permission"
+          },
+          long: {
+            0: "Orientation sensor is working and accurate.",
+            1: "Orientation sensor is inaccurate, are you inside a metal vehicle? Try to rotate your device around itself.",
+            2: "Orientation sensor is not available.",
+            3: "Orientation sensor is blocked in settings. Please go to settings and enable it."
+          }
         }
       }
     },
@@ -128,6 +150,7 @@
       latency: get("room-state/room@users.user.latency"),
       accuracy: get("room-state/room@users.user.position.accuracy"),
       locationState: get("room-state/room@users.user.gps"),
+      magnetometerState: get("room-state/room@users.user.magnetometer"),
       userName: sync("room-state/room@users.user.name"),
       userIcon: sync("room-state/room@users.user.icon"),
       allIcons() {

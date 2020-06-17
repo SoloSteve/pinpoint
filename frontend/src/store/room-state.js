@@ -11,7 +11,7 @@ const state = {
         latency: 0,
         connection: 2,
         gps: 2,
-        magnetometer: 1
+        magnetometer: 2
       }
     }
   }

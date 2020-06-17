@@ -3,10 +3,10 @@ import {JSONSchema4} from "json-schema"
 import logger from "../loaders/logger";
 import {
   AgentBasedSocket,
-  socketJoinRoomData,
-  socketJoinRoomSchema,
   socketChangeSingleData,
-  socketChangeSingleDataSchema
+  socketChangeSingleDataSchema,
+  socketJoinRoomData,
+  socketJoinRoomSchema
 } from "../types/room";
 import Room from "../services/room";
 import {WebsocketValidationError} from "../types/exceptions";
@@ -32,7 +32,6 @@ function endpoint<T>(socket: Socket, endpoint: string, schema: JSONSchema4 | nul
     try {
       callback(data as T);
     } catch (error) {
-      console.error(error);
       if (error instanceof WebsocketValidationError || error instanceof BaseSafeboxError) {
         socket.emit("exception", {
           endpoint,

@@ -16,7 +16,6 @@
 </template>
 
 <script>
-  import StatusBarIcon from "./status-bar-icon";
   import GroupButton from "./group-button";
   import LocationServicesIcon from "./status-icons/location-services-icon";
   import MagnetometerIcon from "./status-icons/magnetometer-icon";
@@ -24,7 +23,7 @@
 
   export default {
     name: "StatusBar",
-    components: {ConnectionIcon, MagnetometerIcon, LocationServicesIcon, GroupButton, StatusBarIcon},
+    components: {ConnectionIcon, MagnetometerIcon, LocationServicesIcon, GroupButton},
     props: {
       name: {
         type: String,

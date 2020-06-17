@@ -37,7 +37,6 @@
     name: "location",
     data: function () {
       return {
-        hasPermission: false,
         popupOpened: false,
         watchId: null
       };
@@ -106,6 +105,7 @@
     },
     mounted() {
       this.getPermissions();
+      console.log(this);
     }
   }
 </script>

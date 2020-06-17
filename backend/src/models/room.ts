@@ -14,14 +14,30 @@ export const roomSchema: JSONSchema4 = {
             minLength: 2,
             maxLength: 25
           },
+          icon: {},
           latency: {
             type: "integer",
             minimum: 0,
             maximum: 5000,
           },
+          connection: {
+            type: "number",
+            minimum: 0,
+            maximum: 2
+          },
+          gps: {
+            type: "number",
+            minimum: 0,
+            maximum: 3
+          },
+          magnetometer: {
+            type: "number",
+            minimum: 0,
+            maximum: 3
+          },
           position: {
             type: "object",
-            required: ["lat", "lng"],
+            required: ["lat", "lng", "accuracy"],
             properties: {
               lat: {
                 type: "number",

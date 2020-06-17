@@ -6,7 +6,8 @@
                :magnetometer="user.magnetometer"
                :name="user.name"
     />
-    <Distance/>
+    <Distance :following="following"/>
+    <Direction :following="following"/>
     <div class="content-container">
       <div class="elevation-4 map-container">
         <SimpleMap :users="users"/>
@@ -19,9 +20,10 @@
   import StatusBar from "../components/status-bar/status-bar";
   import SimpleMap from "../components/map/simple-map";
   import Distance from "../components/map/distance";
+  import Direction from "../components/direction";
 
   export default {
-    components: {Distance, SimpleMap, StatusBar},
+    components: {Direction, Distance, SimpleMap, StatusBar},
     data() {
       return {}
     },
@@ -33,6 +35,19 @@
       },
       user() {
         return this.$store.get("room-state/room@users.user");
+      },
+      following() {
+        const followingId = this.$store.get("room-state/room@followingId");
+        if (followingId === null) return null;
+        try {
+          const following = this.$store.get(`room-state/room@users.${followingId}`);
+          if (following === null || !following.hasOwnProperty("position")) {
+            return null;
+          }
+          return following;
+        } catch (e) {
+          return null
+        }
       }
     }
   }
@@ -42,14 +57,16 @@
   .content-container {
     height: calc(100% - var(--f7-navbar-height));
     width: 100%;
+    top: var(--f7-navbar-height);
+    position: absolute;
   }
 
   .map-container {
     position: absolute;
-    top: calc(1.5% + var(--f7-navbar-height));
+    top: 1.5%;
     width: 95%;
     /*bottom: calc(2.5% + var(--f7-toolbar-height));*/
-    bottom: calc(1.5%);
+    bottom: 1.5%;
     right: 2.5%;
 
     border-radius: 5px;
