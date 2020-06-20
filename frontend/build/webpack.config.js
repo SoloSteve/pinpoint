@@ -47,6 +47,18 @@ module.exports = {
     disableHostCheck: true,
     watchOptions: {
       poll: 1000,
+    },
+    proxy: {
+      '/dev': {
+        target: 'ws://localhost:8040',
+        ws: true
+      },
+      '/create': {
+        target: 'http://localhost:8040'
+      },
+      '/room': {
+        target: 'http://localhost:8040'
+      }
     }
   },
   optimization: {

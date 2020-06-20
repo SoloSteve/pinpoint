@@ -69,7 +69,7 @@
       startGeolocationWatch() {
         if (this.watchId) navigator.geolocation.clearWatch(this.watchId);
         this.watchId = navigator.geolocation.watchPosition((position) => {
-          this.$store.set("room-state/room@users.user.gps", 0);
+          this.$store.set("room-state/room@users.user.gps", position.coords.accuracy <= 50 ? 0 : 1);
           this.$store.set(`room-state/room@users.user.position`, {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
@@ -105,7 +105,6 @@
     },
     mounted() {
       this.getPermissions();
-      console.log(this);
     }
   }
 </script>

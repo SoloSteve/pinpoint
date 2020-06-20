@@ -16,7 +16,7 @@
   import IOdometer from 'vue-odometer';
   import 'odometer/themes/odometer-theme-default.css';
   import {throttle} from "lodash"
-  import {distanceTo} from "../../js/utils";
+  import {distanceTo} from "../js/utils";
 
   export default {
     name: "distance",
@@ -52,7 +52,7 @@
           || !user.position.hasOwnProperty("accuracy")
         ) return this.maxAccuracy;
 
-        return Math.min(user.position.accuracy + following.position.accuracy, this.maxAccuracy);
+        return Math.round(Math.min(user.position.accuracy + following.position.accuracy, this.maxAccuracy));
       }
     },
     watch: {

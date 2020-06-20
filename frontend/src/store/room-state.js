@@ -2,7 +2,7 @@ import {make} from "vuex-pathify";
 
 const state = {
   room: {
-    userId: null,
+    userId: null, // Also indicates whether the user is connected to a room or not
     followingId: null,
     users: {
       user: {

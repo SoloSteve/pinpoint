@@ -58,7 +58,7 @@
         return;
       }
 
-      this.socket = io("localhost:8040", {
+      this.socket = io("/", {
         path: "/" + this.roomId.split("-")[0],
         transports: ["websocket"]
       });

@@ -11,7 +11,7 @@ import * as dotenv from "dotenv";
 // Set the NODE_ENV to 'development' by default
 process.env.NODE_ENV = process.env.NODE_ENV || "development";
 
-if (dotenv.config()) {
+if (dotenv.config().error) {
   console.warn("Could not find .env file");
 }
 
@@ -26,7 +26,7 @@ if (dotenv.config()) {
  * and the object's values are the default value that will be set if the
  * corresponding key does not exist in the environment.
  */
-const env = {
+const env: { [key: string]: any } = {
   NODE_ENV: "development",
   BEHIND_PROXY: false,
   INSTANCE_ID: "dev",
@@ -36,7 +36,7 @@ const env = {
 
 // Get from ENV or use default value
 // ENV variables are parsed JSON style
-Object.entries(env).map(([key, value]) => {
+Object.entries(env).forEach(([key, value]) => {
   let environmentValue = process.env[key];
 
   if (environmentValue === undefined) {
@@ -49,7 +49,7 @@ Object.entries(env).map(([key, value]) => {
     console.warn(`Unable to parse '${key}=${environmentValue}'`);
     value = environmentValue;
   }
-  return value;
+  env[key] = value;
 });
 
 // Log the resulting env

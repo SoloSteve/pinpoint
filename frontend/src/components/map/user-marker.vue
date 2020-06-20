@@ -28,15 +28,18 @@
     <l-moving-marker
         :duration="1"
         :lat-lng="latLngOther"
-        :options="{zIndexOffset: -1}"
+        :options="{zIndexOffset: -1, interactive: false}"
     >
-      <!--      You need to fix the zIndexOffset, and try to get LIcon into accuracy-direction-circle-->
       <LIcon
           :icon-anchor="[accuracySizeInPixels + 2, accuracySizeInPixels + 2]"
           :icon-size="[(accuracySizeInPixels + 2)*2, (accuracySizeInPixels + 2)*2]"
       >
-        <accuracy-direction-circle :accuracyInPixels="accuracySizeInPixels" :direction="heading"
-                                   v-show="Number.isFinite(accuracy)"/>
+        <accuracy-direction-circle
+            :accuracyInPixels="accuracySizeInPixels"
+            :direction="heading"
+            :speed="speed"
+            v-show="Number.isFinite(accuracy)"
+        />
       </LIcon>
     </l-moving-marker>
   </div>

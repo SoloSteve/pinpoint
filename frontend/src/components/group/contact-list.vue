@@ -21,7 +21,11 @@
             <img alt="User" src="/static/icons/avatars/standing_man.svg"/>
           </div>
           <f7-accordion-content class="stat-section">
-            <statistics :accuracy="user.position.accuracy" :latency="user.latency" :speed="user.position.speed"/>
+            <statistics
+                :accuracy="user.position ? user.position.accuracy : undefined"
+                :latency="user.latency"
+                :speed="user.position ? user.position.speed : undefined"
+            />
           </f7-accordion-content>
         </f7-list-item>
       </f7-list-group>

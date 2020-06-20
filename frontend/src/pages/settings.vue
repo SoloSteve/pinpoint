@@ -18,7 +18,7 @@
         <ConnectionIcon :state="0" :style="{color: stateToColor[connectionState]}" size="36px" slot="media"/>
       </f7-list-item>
       <f7-list-item
-          :after="accuracy ? `Accuracy: ${accuracy}m`: null"
+          :after="Number.isFinite(accuracy) ? `Accuracy: ${Math.round(accuracy)}m`: null"
           :text="locationServiceToText.long[locationState]"
           :title="locationServiceToText.short[locationState]"
       >

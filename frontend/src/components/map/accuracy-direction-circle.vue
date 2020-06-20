@@ -20,6 +20,9 @@
       direction: {
         type: Number
       },
+      speed: {
+        type: Number,
+      },
       directionAccuracyAngle: {
         type: Number,
         default: 10
@@ -30,7 +33,7 @@
     },
     computed: {
       pathDirection() {
-        if (!Number.isFinite(this.direction)) return [];
+        if (!Number.isFinite(this.direction) || !Number.isFinite(this.speed) || this.speed < 1) return [];
         return describeArc(
           this.accuracyInPixels + 2,
           this.accuracyInPixels + 2,

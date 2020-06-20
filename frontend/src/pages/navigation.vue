@@ -19,7 +19,7 @@
 <script>
   import StatusBar from "../components/status-bar/status-bar";
   import SimpleMap from "../components/map/simple-map";
-  import Distance from "../components/map/distance";
+  import Distance from "../components/distance";
   import Direction from "../components/direction";
 
   export default {

@@ -4,14 +4,14 @@
           <span class="stat-box-title">Speed</span>
           <f7-icon icon="fas fa-walking" size="20"/>
           <div class="speed-container">
-            <span>{{speed}}</span><span>m/s</span>
+            <span>{{Math.round(speed * 10) / 10}}</span><span>m/s</span>
           </div>
         </f7-col>
       <f7-col class="stat-box" v-if="Number.isFinite(accuracy)">
         <span class="stat-box-title">Accuracy</span>
         <f7-icon icon="fas fa-crosshairs" size="20"/>
         <div class="accuracy-container">
-          <span>±</span><span>{{accuracy}}</span><span>m</span>
+          <span>±</span><span>{{Math.round(accuracy)}}</span><span>m</span>
         </div>
       </f7-col>
       <f7-col class="stat-box" v-if="Number.isFinite(latency)">
