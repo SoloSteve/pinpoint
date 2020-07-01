@@ -9,6 +9,7 @@ export interface AgentBasedSocket extends Socket {
 
 export interface RoomOptions {
   roomIdLength: number;
+  roomDeletionTimeoutLength: number; // milliseconds
 }
 
 export interface socketJoinRoomData {

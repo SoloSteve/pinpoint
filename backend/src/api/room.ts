@@ -9,6 +9,10 @@ export default (router: Router) => {
   router.get("/create", (context) => {
     let room = new Room(defaultRoomOptions);
 
+    logger.info("Created New Room", {
+      roomId: room.id
+    });
+
     context.redirect(`/room/${env.INSTANCE_ID}-${room.id}`);
     context.body = room.id;
   });
@@ -36,9 +40,5 @@ export default (router: Router) => {
     });
 
     context.redirect(env.APP_URL);
-
-    logger.info("Created New Room", {
-      roomId
-    });
   });
 }
