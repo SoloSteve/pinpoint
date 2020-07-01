@@ -15,8 +15,7 @@
       >
         <div class="marker-container">
           <div class="icon-container">
-            <!--            <accuracy-direction-circle v-show="Number.isFinite(accuracy)" :accuracyInPixels="accuracySizeInPixels" :direction="heading"/>-->
-            <img alt="(•◡•)" class="icon-img" src="/static/icons/avatars/standing_man.svg"/>
+            <img :src="selectedIcon.img" alt="(•◡•)" class="icon-img"/>
           </div>
           <div
               :style="{'font-size': `${12 + 15/name.length}px`, backgroundColor: highlightName ? '#fafad2' : undefined}"
@@ -50,6 +49,7 @@
   import LMovingMarker from 'vue2-leaflet-movingmarker';
   import {distanceTo, newPoint} from "../../js/utils";
   import AccuracyDirectionCircle from "./accuracy-direction-circle";
+  import {avatars} from "../../js/avatars";
 
   export default {
     name: "user-marker",
@@ -109,6 +109,9 @@
         const point1 = this.marker._map.latLngToContainerPoint([0, 0]).y;
         const point2 = this.marker._map.latLngToContainerPoint(newPoint(0, 0, this.accuracy, 0)).y;
         return Math.abs(point1 - point2);
+      },
+      selectedIcon() {
+        return avatars[this.$store.get("room-state/room@users.user.icon")];
       }
     },
     watch: {
