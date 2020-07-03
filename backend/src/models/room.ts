@@ -20,6 +20,9 @@ export const roomSchema: JSONSchema4 = {
             minimum: 0,
             maximum: 5000,
           },
+          focus: {
+            type: "boolean"
+          },
           connection: {
             type: "number",
             minimum: 0,

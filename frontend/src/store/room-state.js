@@ -6,8 +6,9 @@ const state = {
     followingId: null,
     users: {
       user: {
-        name: "Person",
-        icon: 0,
+        name: window.localStorage.getItem("name") || "Person",
+        icon: window.localStorage.getItem("icon") || 0,
+        focus: true,
         latency: 0,
         connection: 2,
         gps: 2,

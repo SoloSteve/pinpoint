@@ -14,7 +14,7 @@
             :title="capitalize(user.name)"
             accordion-item
             class="user-container"
-            footer="Online"
+            :footer="user.focus ? 'Online' : 'Away'"
             v-for="user in letterGroup[1]"
         >
           <div class="avatar-container" slot="media">

@@ -19,7 +19,8 @@
         iconState: {
           0: "wifi",
           1: "network_check",
-          2: "wifi_off"
+          2: "wifi_off",
+          3: "person_add_disabled"
         }
       }
     }

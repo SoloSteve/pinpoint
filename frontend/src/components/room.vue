@@ -55,6 +55,7 @@
     mounted() {
       this.roomId = getCookie("roomId");
       if (!this.roomId) {
+        this.$store.set("room-state/room@users.user.connection", 3);
         return;
       }
 
@@ -74,6 +75,11 @@
 
       this.socket.on("exception", (data) => {
         console.error(data);
+        if (data.error.errorCode === 404) {
+          this.$f7.dialog.confirm("Your previous room closed, would you like to open a new one?", "Room Closed", () => {
+            window.location.href = "/create";
+          });
+        }
       });
 
       this.socket.on("room-data", (data) => {
@@ -121,6 +127,18 @@
       this.socket.on("disconnect", () => {
         this.userId = null;
         this.$store.set("room-state/room@users.user.connection", 2);
+      });
+
+      window.addEventListener("beforeunload", () => {
+        this.socket.disconnect();
+      });
+
+      window.addEventListener("focus", () => {
+        this.$store.set("room-state/room@users.user.focus", true);
+      });
+
+      window.addEventListener("blur", () => {
+        this.$store.set("room-state/room@users.user.focus", false);
       });
     },
     destroyed() {

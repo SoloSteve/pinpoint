@@ -15,7 +15,8 @@
           :text="connectionToText.long[connectionState]"
           :title="connectionToText.short[connectionState]"
       >
-        <ConnectionIcon :state="0" :style="{color: stateToColor[connectionState]}" size="36px" slot="media"/>
+        <ConnectionIcon :state="connectionState" :style="{color: stateToColor[connectionState]}" size="36px"
+                        slot="media"/>
       </f7-list-item>
       <f7-list-item
           :after="Number.isFinite(accuracy) ? `Accuracy: ${Math.round(accuracy)}m`: null"
@@ -107,12 +108,14 @@
           short: {
             0: "Connected",
             1: "Bad Connection",
-            2: "Not Connected"
+            2: "Not Connected",
+            3: "No Group"
           },
           long: {
             0: "You are connected to the server, everything seems good.",
             1: "You are connected, but the communication speed is slow (high latency).",
-            2: "You are not communicating with the server. Are you connected to the internet?"
+            2: "You are not communicating with the server. Are you connected to the internet?",
+            3: "You are not in a group, create one or join someone else's!"
           }
         },
         locationServiceToText: {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <l-moving-marker
-        :duration="2000"
+        :duration="duration"
         :lat-lng="latLng"
         :options="{zIndexOffset: 1000}"
         @click="onMarkerClick"
@@ -25,7 +25,8 @@
       </l-icon>
     </l-moving-marker>
     <l-moving-marker
-        :duration="1"
+        :duration="duration"
+        ref="accuracy-marker"
         :lat-lng="latLngOther"
         :options="{zIndexOffset: -1, interactive: false}"
     >
@@ -131,6 +132,8 @@
       this.$nextTick(() => {
         this.marker = this.$refs.marker.mapObject;
         this.marker.setDuration = () => {
+        };
+        this.$refs["accuracy-marker"].mapObject.setDuration = () => {
         };
       });
     }

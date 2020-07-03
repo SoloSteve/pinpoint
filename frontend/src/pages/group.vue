@@ -10,7 +10,20 @@
         </f7-block>
       </f7-nav-right>
     </f7-navbar>
-    <contact-list :users="users"/>
+    <contact-list :users="users" v-if="users.length > 0"/>
+    <div id="group-empty-block" v-else>
+      <f7-block-title>
+        Group Is Empty
+      </f7-block-title>
+      <f7-block-header>
+        Invite people using the invite buttons below, or send them this link:
+      </f7-block-header>
+      <f7-block-footer>
+        <span @click="selectLink" id="room-link">
+          {{joinString}}
+        </span>
+      </f7-block-footer>
+    </div>
     <f7-toolbar bottom labels>
       <f7-block class="invite-block">
         <f7-icon icon="fas fa-user-plus"/>
@@ -36,14 +49,21 @@
     },
     props: {},
     methods: {
-      selectGroupId() {
+      selectText(element) {
         const selection = window.getSelection();
         const range = document.createRange();
-        const textElement = this.$refs.chip.$el.getElementsByClassName("chip-label")[0];
-        textElement.style.lineHeight = "20px";
-        range.selectNodeContents(textElement);
+        element.style.lineHeight = "20px";
+        range.selectNodeContents(element);
         selection.removeAllRanges();
         selection.addRange(range);
+      },
+      selectGroupId() {
+        const textElement = this.$refs.chip.$el.getElementsByClassName("chip-label")[0];
+        this.selectText(textElement);
+      },
+      selectLink() {
+        const textElement = document.getElementById("room-link");
+        this.selectText(textElement);
       },
       inviteViaWhatsapp: function () {
         window.open(`whatsapp://send?text=${this.inviteString}`);
@@ -67,8 +87,11 @@
           return {...user, id};
         }).filter((user) => user.id !== "user");
       },
-      inviteString: function () {
-        return `Hey, let's find each other! ${window.location.origin}/room/${this.roomId}`;
+      inviteString() {
+        return `Hey, let's find each other! ${this.joinString()}`;
+      },
+      joinString() {
+        return `${window.location.origin}/room/${this.roomId}`;
       }
     }
   }
@@ -109,5 +132,15 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  #group-empty-block {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
   }
 </style>
