@@ -55,6 +55,7 @@
     "framework7-vue": "^5.7.8",
     "interactjs": "^1.9.19",
     "leaflet": "^1.6.0",
+    "leaflet-contextmenu": "^1.4.0",
     "lodash": "^4.17.15",
     "odometer": "^0.4.8",
     "socket.io-client": "latest",

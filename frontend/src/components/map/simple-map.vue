@@ -7,6 +7,7 @@
       :zoom.sync="mapProperties.zoom"
       @dblclick="onDoubleClick"
       @mousemove="snap.enabled = false"
+      @contextmenu="onContextMenu"
       ref="map"
   >
     <l-tile-layer
@@ -26,18 +27,35 @@
         @marker-click="onMarkerClick(user)"
         v-for="user in positionedUsers"
     />
+    <waypoint-marker
+        :highlight-name="isUserImportant(waypoint.id)"
+        :icon-id="waypoint.iconId"
+        :id="waypoint.id"
+        :key="waypoint.id"
+        :lat="waypoint.position.lat"
+        :lng="waypoint.position.lng"
+        :name="waypoint.name"
+        @clicked="onMarkerClick(waypoint)"
+        v-for="waypoint in waypoints"
+    />
   </l-map>
 </template>
 
 <script>
   import {LIcon, LMap, LMarker, LTileLayer} from 'vue2-leaflet';
-  import {staticOptions, tileProvider} from './map-options';
+  import "leaflet-contextmenu";
+  import "leaflet-contextmenu/dist/leaflet.contextmenu.min.css";
+  import {uniqueId} from "lodash";
+  import {contextMenu, staticOptions, tileProvider} from './map-options';
   import UserMarker from "./user-marker";
   import {get} from "vuex-pathify";
+  import {avatars} from "../../js/avatars";
+  import WaypointMarker from "./waypoint-marker";
 
   export default {
     name: "simple-map",
     components: {
+      WaypointMarker,
       UserMarker,
       LMap,
       LTileLayer,
@@ -48,13 +66,27 @@
       users: {
         type: Array,
         required: true
+      },
+      waypoints: {
+        type: Array,
+        required: true
       }
     },
     data: function () {
       return {
         map: null,
         maxValidAccuracy: 150,
-        mapOptions: staticOptions,
+        mapOptions: {
+          ...staticOptions,
+          ...contextMenu,
+          contextmenuItems: [
+            {
+              text: "Create Waypoint",
+              icon: avatars["x0"].img,
+              callback: this.addWaypoint
+            }
+          ]
+        },
         tileProvider: tileProvider,
         mapProperties: {
           zoom: 3,
@@ -74,8 +106,8 @@
       positionedUsers() {
         return this.users.filter(user => user.hasOwnProperty("position") && user.position.accuracy <= this.maxValidAccuracy);
       },
-      usersBounds() {
-        return this.positionedUsers.map(user => [user.position.lat, user.position.lng]);
+      entityBounds() {
+        return this.positionedUsers.concat(this.waypoints).map(entity => [entity.position.lat, entity.position.lng]);
       }
     },
     watch: {
@@ -87,11 +119,11 @@
     },
     methods: {
       centerMap() {
-        if (this.usersBounds.length === 0) return;
+        if (this.entityBounds.length === 0) return;
         if (this.mapProperties.zoom <= 14) { // Arbitrary value
-          this.map.fitBounds(this.usersBounds, {padding: [40, 40]}); // Arbitrary value
+          this.map.fitBounds(this.entityBounds, {padding: [40, 40]}); // Arbitrary value
         } else {
-          this.map.flyToBounds(this.usersBounds, {padding: [40, 40]});
+          this.map.flyToBounds(this.entityBounds, {padding: [40, 40]});
         }
       },
 
@@ -114,6 +146,21 @@
         } else {
           this.$store.set("room-state/room@followingId", entity.id);
         }
+      },
+
+      onContextMenu() {
+        this.snap.enabled = false;
+      },
+
+      addWaypoint(evt) {
+        const waypointId = uniqueId(this.userId);
+        const waypoint = {
+          name: "Waypoint",
+          position: evt.latlng,
+          iconId: "x0",
+        };
+        this.$store.set(`room-state/room@waypoints.${waypointId}`, waypoint);
+        console.log("Created Waypoint:", waypoint);
       }
     },
 
@@ -131,4 +178,13 @@
 
 <style scoped>
 
+</style>
+<style>
+  .leaflet-contextmenu-item {
+    line-height: 40px !important;
+  }
+
+  .leaflet-contextmenu-icon {
+    height: 40px !important;
+  }
 </style>

@@ -7,14 +7,15 @@ const state = {
     users: {
       user: {
         name: window.localStorage.getItem("name") || "Person",
-        icon: window.localStorage.getItem("icon") || 0,
+        icon: window.localStorage.getItem("icon") || "0",
         focus: true,
         latency: 0,
         connection: 2,
         gps: 2,
         magnetometer: 2
       }
-    }
+    },
+    waypoints: {}
   }
 }
 

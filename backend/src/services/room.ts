@@ -47,6 +47,12 @@ export default class Room {
       new PathPermission(
         ["users"],
         PermissionType.GET
+      ),
+      new PathPermission(
+        ["waypoints"],
+        PermissionType.SET,
+        PermissionType.GET,
+        PermissionType.DELETE
       )
     );
   }

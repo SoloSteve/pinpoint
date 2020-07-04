@@ -17,3 +17,9 @@ export const tileProvider = {
   "zoomOffset": -1,
   "attribution": '©<a href="https://www.mapbox.com/about/maps/" target="_blank" rel="noreferrer">Mapbox</a> ©<a href="http://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank" rel="noreferrer">Improve this map</a></strong>'
 };
+
+export const contextMenu = {
+  contextmenu: true,
+  // contextmenuWidth: 180,
+  contextmenuInheritItems: false,
+}

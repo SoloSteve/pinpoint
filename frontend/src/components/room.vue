@@ -7,6 +7,7 @@
   import {getCookie, merge} from "../js/utils";
   import {get, sync} from "vuex-pathify";
   import calcDiff from "deep-diff";
+  import {cloneDeep} from "lodash";
 
   export default {
     name: "room",
@@ -15,11 +16,13 @@
         roomId: null,
         socket: null,
         joined: false,
-        previousValue: {}
+        previousUserValue: {},
+        previousWaypointValue: {}
       }
     },
     computed: {
       userData: get("room-state/room@users.user"),
+      waypoints: get("room-state/room@waypoints"),
       userId: sync("room-state/room@userId")
     },
     watch: {
@@ -27,7 +30,7 @@
         deep: true,
         handler(val) {
           if (!this.socket || !this.socket.connected || !this.roomId || !this.userId) return;
-          const differences = calcDiff(this.previousValue, val);
+          const differences = calcDiff(this.previousUserValue, val);
           if (!differences) return;
           differences.forEach((difference) => {
             switch (difference.kind) {
@@ -48,7 +51,41 @@
             }
           });
 
-          this.previousValue = Object.assign({}, val);
+          this.previousUserValue = cloneDeep(val);
+        }
+      },
+      waypoints: {
+        deep: true,
+        handler(val) {
+          if (!this.socket || !this.socket.connected || !this.roomId || !this.userId) return;
+          const differences = calcDiff(this.previousWaypointValue, val);
+          if (!differences) return;
+          differences.forEach((difference) => {
+            switch (difference.kind) {
+              case "E":
+                this.socket.emit("update-room", {
+                  change: "merge",
+                  path: ["waypoints", ...difference.path],
+                  value: difference.rhs
+                });
+                break;
+              case "N":
+                this.socket.emit("update-room", {
+                  change: "set",
+                  path: ["waypoints", ...difference.path],
+                  value: difference.rhs
+                });
+                break;
+              case "D":
+                this.socket.emit("update-room", {
+                  change: "delete",
+                  path: ["waypoints", ...difference.path],
+                });
+                break;
+            }
+          });
+
+          this.previousWaypointValue = cloneDeep(val);
         }
       }
     },

@@ -5,17 +5,16 @@
         :lat-lng="latLng"
         :options="{zIndexOffset: 1000}"
         @click="onMarkerClick"
-        class="vue-marker"
         ref="marker"
     >
       <l-icon
-          :icon-anchor="[24, 48]"
-          :icon-size="[48, 48]"
+          :icon-anchor="selectedIcon.anchor"
+          :icon-size="selectedIcon.size"
           class="vue-icon"
       >
         <div class="marker-container">
           <div class="icon-container">
-            <img :src="selectedIcon.img" alt="(•◡•)" class="icon-img"/>
+            <img :src="selectedIcon.img" alt="(•◡•)"/>
           </div>
           <div
               :style="{'font-size': `${12 + 15/name.length}px`, backgroundColor: highlightName ? '#fafad2' : undefined}"
@@ -151,10 +150,6 @@
     justify-content: center;
     width: 48px;
     height: 48px;
-  }
-
-  .icon-img {
-    /*position: absolute;*/
   }
 
   .label {

@@ -10,7 +10,7 @@
     <Direction :following="following"/>
     <div class="content-container">
       <div class="elevation-4 map-container">
-        <SimpleMap :users="users"/>
+        <SimpleMap :users="users" :waypoints="waypoints"/>
       </div>
     </div>
   </f7-page>
@@ -33,6 +33,11 @@
           return {id: key, ...value};
         });
       },
+      waypoints() {
+        return Object.entries(this.$store.get("room-state/room@waypoints")).map(([key, value]) => {
+          return {id: key, ...value};
+        });
+      },
       user() {
         return this.$store.get("room-state/room@users.user");
       },
@@ -40,7 +45,10 @@
         const followingId = this.$store.get("room-state/room@followingId");
         if (followingId === null) return null;
         try {
-          const following = this.$store.get(`room-state/room@users.${followingId}`);
+          const following =
+            this.$store.get(`room-state/room@users.${followingId}`)
+            || this.$store.get(`room-state/room@waypoints.${followingId}`);
+
           if (following === null || !following.hasOwnProperty("position")) {
             return null;
           }

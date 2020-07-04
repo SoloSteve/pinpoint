@@ -17,6 +17,13 @@ if (env.NODE_ENV === "development") {
       level: "debug"
     })
   );
+} else {
+  transports.push(
+    new winston.transports.Console({
+      format: winston.format.simple(),
+      level: "info"
+    })
+  );
 }
 
 export default winston.createLogger({

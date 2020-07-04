@@ -34,7 +34,7 @@ export interface socketChangeSingleData {
 
 export const socketChangeSingleDataSchema: JSONSchema4 = {
   type: "object",
-  required: ["path", "value", "change"],
+  required: ["path", "change"],
   properties: {
     path: {
       type: "array",

@@ -14,7 +14,10 @@ export const roomSchema: JSONSchema4 = {
             minLength: 2,
             maxLength: 25
           },
-          icon: {},
+          icon: {
+            type: "string",
+            maxLength: 3
+          },
           latency: {
             type: "integer",
             minimum: 0,
@@ -69,6 +72,38 @@ export const roomSchema: JSONSchema4 = {
                 type: ["number", "null"],
                 minimum: 0
               }
+            }
+          }
+        }
+      }
+    },
+    waypoints: {
+      type: "object",
+      additionalProperties: {
+        type: "object",
+        properties: {
+          name: {
+            type: "string",
+            maxLength: 30
+          },
+          iconId: {
+            type: "string",
+            maxLength: 3
+          },
+          position: {
+            type: "object",
+            required: ["lat", "lng"],
+            properties: {
+              lat: {
+                type: "number",
+                minimum: -90,
+                maximum: 90
+              },
+              lng: {
+                type: "number",
+                minimum: -180,
+                maximum: 180
+              },
             }
           }
         }

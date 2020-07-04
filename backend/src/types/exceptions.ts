@@ -14,3 +14,10 @@ export class WebsocketValidationError extends Error {
     this.errorCode = code;
   }
 }
+
+export class RoomDoesNotExistError extends WebsocketValidationError {
+  constructor() {
+    super(404);
+    this.name = "RoomDoesNotExistError";
+  }
+}

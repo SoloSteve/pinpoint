@@ -16,7 +16,6 @@ export default (app: Koa): Router => {
   const router = new Router({
     sensitive: true,
     methods: ["get"],
-    prefix: env.NODE_ENV == "development" ? undefined : `/${env.INSTANCE_ID}`,
   });
 
   app.proxy = env.BEHIND_PROXY;

@@ -7,6 +7,7 @@
     <IOdometer
         id="odometer"
         ref="odometer"
+        :duration="animationDuration"
     />
     <div id="accuracy">±{{accuracy}}m</div>
   </div>
@@ -32,7 +33,8 @@
       return {
         distanceCounter: null,
         maxDistance: 9999,
-        maxAccuracy: 99
+        maxAccuracy: 99,
+        animationDuration: 2000 //ms
       }
     },
     computed: {
@@ -40,7 +42,8 @@
         const following = this.following;
         const user = this.$store.get("room-state/room@users.user");
         if (following === null || !following.hasOwnProperty("position") || !user.hasOwnProperty("position")) return null;
-        return Math.round(distanceTo(following.position.lat, following.position.lng, user.position.lat, user.position.lng));
+        const distance = Math.round(distanceTo(following.position.lat, following.position.lng, user.position.lat, user.position.lng));
+        return distance <= this.maxDistance ? distance : null;
       },
       accuracy() {
         const following = this.following;
@@ -69,7 +72,7 @@
       this.$nextTick(() => {
         this.distanceCounter = this.$refs["odometer"];
       });
-      this.updateDistance(throttle(this.updateDistance, 2000))
+      this.updateDistance = throttle(this.updateDistance, this.animationDuration);
     }
   }
 </script>

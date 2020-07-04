@@ -9,7 +9,7 @@ import {
   socketJoinRoomSchema
 } from "../types/room";
 import Room from "../services/room";
-import {WebsocketValidationError} from "../types/exceptions";
+import {RoomDoesNotExistError, WebsocketValidationError} from "../types/exceptions";
 import {BaseSafeboxError} from "safebox";
 import * as Ajv from "ajv";
 import {BAD_REQUEST} from "http-status-codes";
@@ -91,7 +91,7 @@ export default (wss: Server) => {
         throw new WebsocketValidationError(400, "Already Joined Room");
       }
       if (room === null) {
-        throw new WebsocketValidationError(400, "Room does not exist");
+        throw new RoomDoesNotExistError();
       }
 
       socket.agent = room.joinRoom(socket.id);
@@ -113,6 +113,9 @@ export default (wss: Server) => {
           break;
         case "merge":
           socket.agent.merge(data.path, data.value);
+          break;
+        case "delete":
+          socket.agent.delete(data.path);
           break;
         default:
           throw new WebsocketValidationError(400, `Unknown change type: ${data.change}`);
