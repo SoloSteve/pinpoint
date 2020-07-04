@@ -111,7 +111,7 @@
       }
     },
     watch: {
-      usersBounds() {
+      entityBounds() {
         if (this.snap.enabled) {
           this.centerMap();
         }
