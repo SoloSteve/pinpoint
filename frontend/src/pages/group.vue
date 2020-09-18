@@ -38,20 +38,20 @@
 </template>
 
 <script>
-  import ContactList from "../components/group/contact-list";
-  import {getCookie} from "../js/utils";
+import ContactList from "../components/group/contact-list";
+import {getCookie} from "../js/utils";
 
-  export default {
-    name: "group",
-    components: {ContactList},
-    data() {
-      return {}
-    },
-    props: {},
-    methods: {
-      selectText(element) {
-        const selection = window.getSelection();
-        const range = document.createRange();
+export default {
+  name: "group",
+  components: {ContactList},
+  data() {
+    return {}
+  },
+  props: {},
+  methods: {
+    selectText(element) {
+      const selection = window.getSelection();
+      const range = document.createRange();
         element.style.lineHeight = "20px";
         range.selectNodeContents(element);
         selection.removeAllRanges();
@@ -88,7 +88,7 @@
         }).filter((user) => user.id !== "user");
       },
       inviteString() {
-        return `Hey, let's find each other! ${this.joinString()}`;
+        return `Hey, let's find each other! ${this.joinString}`;
       },
       joinString() {
         return `${window.location.origin}/room/${this.roomId}`;

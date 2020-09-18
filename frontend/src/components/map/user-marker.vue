@@ -45,39 +45,43 @@
 </template>
 
 <script>
-  import {LCircle, LIcon} from 'vue2-leaflet';
-  import LMovingMarker from 'vue2-leaflet-movingmarker';
-  import {distanceTo, newPoint} from "../../js/utils";
-  import AccuracyDirectionCircle from "./accuracy-direction-circle";
-  import {avatars} from "../../js/avatars";
+import {LCircle, LIcon} from 'vue2-leaflet';
+import LMovingMarker from 'vue2-leaflet-movingmarker';
+import {distanceTo, newPoint} from "../../js/utils";
+import AccuracyDirectionCircle from "./accuracy-direction-circle";
+import {avatars} from "../../js/avatars";
 
-  export default {
-    name: "user-marker",
-    components: {
-      AccuracyDirectionCircle,
-      LMovingMarker,
-      LIcon,
-      LCircle
+export default {
+  name: "user-marker",
+  components: {
+    AccuracyDirectionCircle,
+    LMovingMarker,
+    LIcon,
+    LCircle
+  },
+  props: {
+    name: {
+      type: String,
+      required: true
     },
-    props: {
-      name: {
-        type: String,
-        required: true
-      },
-      highlightName: {
-        type: Boolean,
-        default: false
-      },
-      lat: {
-        type: Number,
-        required: true
-      },
-      lng: {
-        type: Number,
-        required: true
-      },
-      speed: {
-        type: Number,
+    highlightName: {
+      type: Boolean,
+      default: false
+    },
+    icon: {
+      type: String,
+      required: true
+    },
+    lat: {
+      type: Number,
+      required: true
+    },
+    lng: {
+      type: Number,
+      required: true
+    },
+    speed: {
+      type: Number,
       },
       accuracy: {
         type: Number
@@ -111,7 +115,7 @@
         return Math.abs(point1 - point2);
       },
       selectedIcon() {
-        return avatars[this.$store.get("room-state/room@users.user.icon")];
+        return avatars[this.icon];
       }
     },
     watch: {
@@ -121,10 +125,7 @@
     },
     methods: {
       onMarkerClick(evt) {
-        const target = evt.originalEvent.target;
-        if (target !== null && target.classList.contains("icon-img") || target.classList.contains("label")) {
-          this.$emit('marker-click');
-        }
+        this.$emit('marker-click');
       }
     },
     mounted() {

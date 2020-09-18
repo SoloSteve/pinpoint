@@ -20,6 +20,7 @@
         :key="user.id"
         :lat="user.position.lat"
         :lng="user.position.lng"
+        :icon="user.icon"
         :accuracy="isUserImportant(user.id) ? user.position.accuracy : null"
         :name="user.name"
         :heading="user.position.heading"
@@ -42,27 +43,27 @@
 </template>
 
 <script>
-  import {LIcon, LMap, LMarker, LTileLayer} from 'vue2-leaflet';
-  import "leaflet-contextmenu";
-  import "leaflet-contextmenu/dist/leaflet.contextmenu.min.css";
-  import {uniqueId} from "lodash";
-  import {contextMenu, staticOptions, tileProvider} from './map-options';
-  import UserMarker from "./user-marker";
-  import {get} from "vuex-pathify";
-  import {avatars} from "../../js/avatars";
-  import WaypointMarker from "./waypoint-marker";
+import {LIcon, LMap, LMarker, LTileLayer} from 'vue2-leaflet';
+import "leaflet-contextmenu";
+import "leaflet-contextmenu/dist/leaflet.contextmenu.min.css";
+import {uniqueId} from "lodash";
+import {contextMenu, staticOptions, tileProvider} from './map-options';
+import UserMarker from "./user-marker";
+import {get} from "vuex-pathify";
+import {avatars} from "../../js/avatars";
+import WaypointMarker from "./waypoint-marker";
 
-  export default {
-    name: "simple-map",
-    components: {
-      WaypointMarker,
-      UserMarker,
-      LMap,
-      LTileLayer,
-      LMarker,
-      LIcon,
-    },
-    props: {
+export default {
+  name: "simple-map",
+  components: {
+    WaypointMarker,
+    UserMarker,
+    LMap,
+    LTileLayer,
+    LMarker,
+    LIcon,
+  },
+  props: {
       users: {
         type: Array,
         required: true
