@@ -4,9 +4,9 @@
       <f7-block>{{name}}</f7-block>
       <f7-link href="/settings/" id="info-link">
         <f7-segmented id="info-segment" raised tag="div">
+          <ConnectionIcon :state="connection" class="status-icon"/>
           <LocationServicesIcon :state="gps" class="status-icon"/>
           <MagnetometerIcon :state="magnetometer" class="status-icon"/>
-          <ConnectionIcon :state="connection" class="status-icon"/>
           <f7-icon id="settings-icon" material="settings"/>
         </f7-segmented>
       </f7-link>
@@ -16,22 +16,22 @@
 </template>
 
 <script>
-  import GroupButton from "./group-button";
-  import LocationServicesIcon from "./status-icons/location-services-icon";
-  import MagnetometerIcon from "./status-icons/magnetometer-icon";
-  import ConnectionIcon from "./status-icons/connection-icon";
+import GroupButton from "./group-button";
+import LocationServicesIcon from "./status-icons/location-services-icon";
+import MagnetometerIcon from "./status-icons/magnetometer-icon";
+import ConnectionIcon from "./status-icons/connection-icon";
 
-  export default {
-    name: "StatusBar",
-    components: {ConnectionIcon, MagnetometerIcon, LocationServicesIcon, GroupButton},
-    props: {
-      name: {
-        type: String,
-        required: true
-      },
-      connection: {
-        type: Number,
-        required: true
+export default {
+  name: "StatusBar",
+  components: {ConnectionIcon, MagnetometerIcon, LocationServicesIcon, GroupButton},
+  props: {
+    name: {
+      type: String,
+      required: true
+    },
+    connection: {
+      type: Number,
+      required: true
       },
       gps: {
         type: Number,

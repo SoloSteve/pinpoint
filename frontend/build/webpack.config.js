@@ -17,7 +17,6 @@ const env = process.env.NODE_ENV || 'development';
 const target = process.env.TARGET || 'web';
 
 
-
 module.exports = {
   mode: env,
   entry: [
@@ -180,7 +179,7 @@ module.exports = {
       new OptimizeCSSPlugin({
         cssProcessorOptions: {
           safe: true,
-          map: { inline: false },
+          map: {inline: false},
         },
       }),
       new webpack.optimize.ModuleConcatenationPlugin(),
@@ -205,16 +204,18 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'css/app.css',
     }),
-    new CopyWebpackPlugin([
-      {
-        from: resolvePath('src/static'),
-        to: resolvePath('www/static'),
-      },
-      {
-        from: resolvePath('src/manifest.json'),
-        to: resolvePath('www/manifest.json'),
-      },
-    ]),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: resolvePath('src/static'),
+          to: resolvePath('www/static'),
+        },
+        {
+          from: resolvePath('src/manifest.json'),
+          to: resolvePath('www/manifest.json'),
+        },
+      ]
+    }),
 
     new WorkboxPlugin.InjectManifest({
       swSrc: resolvePath('src/service-worker.js'),

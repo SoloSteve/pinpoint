@@ -8,21 +8,21 @@
 </template>
 
 <script>
-  import interact from "interactjs";
-  import arrowCircleImage from "../static/icons/ui/arrow-circle.svg";
-  import {bearingTo} from "../js/utils";
+import interact from "interactjs";
+import arrowCircleImage from "../static/icons/ui/arrow-circle.svg";
+import {bearingTo} from "../js/utils";
 
-  export default {
-    name: "direction",
-    props: {
-      following: {
-        type: Object
-      }
-    },
-    data() {
-      return {
-        arrowCircleImage,
-        maxScaleMultiplier: 2,
+export default {
+  name: "direction",
+  props: {
+    following: {
+      type: Object
+    }
+  },
+  data() {
+    return {
+      arrowCircleImage,
+      maxScaleMultiplier: 2,
         minScaleMultiplier: 0.7,
         orientation: null
       }
@@ -53,14 +53,13 @@
           if (this.$f7.device.ios) {
             setTimeout(() => {
               if (this.orientation === null) {
-                // this.displayIOSMagnetometerNotification();
                 this.$store.set("room-state/room@users.user.magnetometer", 3)
               }
             }, 1000);
           }
 
         } else {
-          this.$store.set("room-state/room@users.user.magnetometer", 2)
+          this.$store.set("room-state/room@users.user.magnetometer", 2);
         }
       },
       onOrientationChange(event) {
@@ -117,7 +116,7 @@
     },
     mounted() {
       this.$nextTick(() => {
-        this.listenForOrientationEvent();
+        this.$root.$once("startOrientationWatch", this.listenForOrientationEvent.bind(this));
 
         const pointerContainer = this.$refs["pointer-container"];
         const rect = pointerContainer.getBoundingClientRect();

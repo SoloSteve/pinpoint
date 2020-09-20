@@ -86,24 +86,25 @@
 </template>
 
 <script>
-  import ConnectionIcon from "../components/status-bar/status-icons/connection-icon";
-  import {get, sync} from "vuex-pathify";
-  import LocationServicesIcon from "../components/status-bar/status-icons/location-services-icon";
-  import {avatars, pickOrder} from "../js/avatars";
-  import MagnetometerIcon from "../components/status-bar/status-icons/magnetometer-icon";
+import ConnectionIcon from "../components/status-bar/status-icons/connection-icon";
+import {get, sync} from "vuex-pathify";
+import LocationServicesIcon from "../components/status-bar/status-icons/location-services-icon";
+import {avatars, pickOrder} from "../js/avatars";
+import MagnetometerIcon from "../components/status-bar/status-icons/magnetometer-icon";
 
-  export default {
-    name: "settings",
-    components: {MagnetometerIcon, LocationServicesIcon, ConnectionIcon},
-    data() {
-      return {
-        shouldShowPwa: false,
-        stateToColor: {
-          0: "yellowgreen",
-          1: "yellow",
-          2: "red",
-          3: "red"
-        },
+export default {
+  name: "settings",
+  components: {MagnetometerIcon, LocationServicesIcon, ConnectionIcon},
+  data() {
+    return {
+      shouldShowPwa: false,
+      stateToColor: {
+        0: "yellowgreen",
+        1: "yellow",
+        2: "red",
+        3: "red",
+        4: "red"
+      },
         connectionToText: {
           short: {
             0: "Connected",
@@ -123,13 +124,15 @@
             0: "Accurate Location",
             1: "Inaccurate Location",
             2: "Not Enabled",
-            3: "Permission Denied"
+            3: "Permission Denied",
+            4: "Permission Dismissed"
           },
           long: {
             0: "GPS is working and your location is accurate.",
             1: "GPS is working, but unable to find your location. Try going outside.",
             2: "Your GPS is Disabled, go into your device settings to turn it on, and refresh the page.",
-            3: "You denied permission to access your location. Refresh the page or go to the web page settings to re-enable permission prompt."
+            3: "You denied permission to access your location. Go to the web page settings to re-enable permission prompt.",
+            4: "You have not enabled access to your location. Refresh the page to be prompted again.",
           }
         },
         magnetometerToText: {
@@ -143,7 +146,7 @@
             0: "Orientation sensor is working and accurate.",
             1: "Orientation sensor is inaccurate, are you inside a metal vehicle? Try to rotate your device around itself.",
             2: "Orientation sensor is not available.",
-            3: "Orientation sensor is blocked in settings. Please go to settings and enable it."
+            3: "You have not enabled access to orientation sensor."
           }
         }
       }

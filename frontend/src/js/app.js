@@ -22,6 +22,7 @@ import 'framework7/components/sheet.css';
 import 'framework7/components/smart-select.css';
 import 'framework7/components/dialog.css';
 import 'framework7/components/input.css';
+import 'framework7/components/checkbox.css';
 import Framework7Vue, {
   f7Accordion,
   f7AccordionContent,
@@ -33,6 +34,7 @@ import Framework7Vue, {
   f7BlockHeader,
   f7BlockTitle,
   f7Button,
+  f7Checkbox,
   f7Chip,
   f7Col,
   f7Icon,
@@ -51,7 +53,7 @@ import Framework7Vue, {
   f7Row,
   f7Segmented,
   f7Toolbar,
-  f7View
+  f7View,
 } from 'framework7-vue/framework7-vue.esm';
 // Import Framework7 Styles
 // import 'framework7/css/framework7.bundle.min.css';\
@@ -119,6 +121,7 @@ Vue.component('f7-chip', f7Chip);
 Vue.component('f7-list-input', f7ListInput);
 Vue.component('f7-toolbar', f7Toolbar);
 Vue.component('f7-badge', f7Badge);
+Vue.component('f7-checkbox', f7Checkbox);
 
 // Init App
 new Vue({

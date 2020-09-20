@@ -1,5 +1,6 @@
 <template>
   <f7-app :params="f7params">
+    <Permissions/>
     <Room/>
     <Location/>
     <ConfigurationSaver/>
@@ -9,23 +10,24 @@
 </template>
 <script>
 
-  import routes from '../js/routes.js';
-  import Room from "./room";
-  import Location from "./location";
-  import ConfigurationSaver from "./configuration-saver";
+import routes from '../js/routes.js';
+import Room from "./room";
+import Location from "./location";
+import ConfigurationSaver from "./configuration-saver";
+import Permissions from "./permissions";
 
-  export default {
-    components: {ConfigurationSaver, Location, Room},
-    data() {
-      return {
-        // Framework7 Parameters
-        f7params: {
-          name: 'Pinpoint', // App name
-          theme: 'md', // Automatic theme detection
-          // App routes
-          routes: routes,
-          // Register service worker
-          serviceWorker: {
+export default {
+  components: {Permissions, ConfigurationSaver, Location, Room},
+  data() {
+    return {
+      // Framework7 Parameters
+      f7params: {
+        name: 'Pinpoint', // App name
+        theme: 'md', // Automatic theme detection
+        // App routes
+        routes: routes,
+        // Register service worker
+        serviceWorker: {
             path: '/service-worker.js',
           }
         }

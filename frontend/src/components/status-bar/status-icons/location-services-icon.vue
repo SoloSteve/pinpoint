@@ -20,7 +20,8 @@
           0: "gps_fixed",
           1: "gps_not_fixed",
           2: "gps_off",
-          3: "gps_off"
+          3: "gps_off",
+          4: "gps_off"
         }
       }
     }
