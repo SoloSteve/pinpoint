@@ -14,32 +14,32 @@
 </template>
 
 <script>
-  import IOdometer from 'vue-odometer';
-  import 'odometer/themes/odometer-theme-default.css';
-  import {throttle} from "lodash"
-  import {distanceTo} from "../js/utils";
+import IOdometer from 'vue-odometer';
+import 'odometer/themes/odometer-theme-default.css';
+import {throttle} from "lodash"
+import {distanceTo} from "../js/utils";
 
-  export default {
-    name: "distance",
-    components: {
-      IOdometer
-    },
-    props: {
-      following: {
-        type: Object
-      }
-    },
-    data() {
-      return {
-        distanceCounter: null,
-        maxDistance: 9999,
-        maxAccuracy: 99,
-        animationDuration: 2000 //ms
-      }
-    },
-    computed: {
-      distance() {
-        const following = this.following;
+export default {
+  name: "distance",
+  components: {
+    IOdometer
+  },
+  props: {
+    following: {
+      type: Object
+    }
+  },
+  data() {
+    return {
+      distanceCounter: null,
+      maxDistance: 9999,
+      maxAccuracy: 99,
+      animationDuration: 2000 //ms
+    }
+  },
+  computed: {
+    distance() {
+      const following = this.following;
         const user = this.$store.get("room-state/room@users.user");
         if (following === null || !following.hasOwnProperty("position") || !user.hasOwnProperty("position")) return null;
         const distance = Math.round(distanceTo(following.position.lat, following.position.lng, user.position.lat, user.position.lng));
@@ -96,7 +96,7 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    /*align-items: center;*/
+    overflow: hidden;
 
     transition-duration: 2s;
   }
@@ -110,7 +110,7 @@
   }
 
   #odometer {
-    font-size: 3em;
+    font-size: 300%;
   }
 
   #accuracy {

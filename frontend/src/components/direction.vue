@@ -11,6 +11,7 @@
 import interact from "interactjs";
 import arrowCircleImage from "../static/icons/ui/arrow-circle.svg";
 import {bearingTo} from "../js/utils";
+import {clamp} from "lodash";
 
 export default {
   name: "direction",
@@ -155,11 +156,9 @@ export default {
               const x = (attrX || 0) + event.dx;
               const y = (attrY || 0) + event.dy;
 
-              const scale = event.scale * attrScale;
+              const scale = clamp(event.scale * attrScale, 1, 2);
 
-              if (scale >= 1 && scale <= 2) {
-                target.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
-              }
+              target.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
             },
             onend(event) {
               attrScale = Math.max(Math.min(attrScale * event.scale, this.maxScaleMultiplier), this.minScaleMultiplier);

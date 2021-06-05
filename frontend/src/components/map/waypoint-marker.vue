@@ -25,32 +25,32 @@
 </template>
 
 <script>
-  import {LIcon, LMarker} from 'vue2-leaflet';
-  import {avatars} from "../../js/avatars";
-  import {contextMenu} from "./map-options";
+import {LIcon, LMarker} from 'vue2-leaflet';
+import {avatars} from "../../js/avatars";
+import {contextMenu} from "./map-options";
 
 
-  export default {
-    name: "waypoint-marker",
-    components: {
-      LMarker,
-      LIcon,
+export default {
+  name: "waypoint-marker",
+  components: {
+    LMarker,
+    LIcon,
+  },
+  props: {
+    id: {
+      type: String,
+      required: true
     },
-    props: {
-      id: {
-        type: String,
-        required: true
-      },
-      lat: {
-        type: Number,
-        required: true
-      },
-      lng: {
-        type: Number,
-        required: true
-      },
-      name: {
-        type: String,
+    lat: {
+      type: Number,
+      required: true
+    },
+    lng: {
+      type: Number,
+      required: true
+    },
+    name: {
+      type: String,
         required: true
       },
       highlightName: {
@@ -78,9 +78,6 @@
                   },
                   "Waypoint"
                 );
-                // this.waypointNameSave.sheetOpened = true;
-                // this.waypointNameSave.waypointToSave = evt.relatedTarget.options.waypoint;
-                // this.waypointNameSave.waypointName = evt.relatedTarget.options.waypoint.name;
               }
             },
             {
@@ -107,7 +104,8 @@
       onWaypointMove(evt) {
         this.$store.set(`room-state/room@waypoints.${this.id}.position`, {
           lat: evt.target._latlng.lat,
-          lng: evt.target._latlng.lng
+          lng: evt.target._latlng.lng,
+          accuracy: 0,
         });
       },
       onWaypointClick(evt) {
