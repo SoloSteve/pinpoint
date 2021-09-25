@@ -7,7 +7,7 @@
       </f7-block>
       <f7-block>
         <f7-list>
-          <f7-list-item>
+          <f7-list-item class="item-thingy">
             <f7-checkbox slot="media" :checked="locationPermissionVisualEnabled" disabled/>
             <f7-button slot="after" :disabled="locationPermissionVisualEnabled || locationPermissionForeverDisabled"
                        big class="permission-btn" fill
@@ -30,14 +30,17 @@
           <f7-list-item title="No Data Logging">
             <f7-icon slot="media" material="check_circle"></f7-icon>
           </f7-list-item>
-          <f7-list-item title="No Selling of Information">
+          <f7-list-item title="No Selling of Any Information">
+            <f7-icon slot="media" material="check_circle"></f7-icon>
+          </f7-list-item>
+          <f7-list-item title="Completely Anonymous">
             <f7-icon slot="media" material="check_circle"></f7-icon>
           </f7-list-item>
         </f7-list>
       </f7-block>
       <f7-block>
-        All of the information you give us is temporarily saved on our servers, once you exit the app, your data is
-        deleted. We don't sell any of your information to anyone. If you'd like to read more you can check out our
+        All of the information you give us is temporarily saved on our servers. Once you exit the app, your data is
+        deleted. We don't sell any of your information to anyone. If you would like to read more you can check out our
         <f7-link>Privacy Policy</f7-link>
       </f7-block>
       <f7-block id="gps-decline-btn">
@@ -174,7 +177,8 @@ export default {
 .permission-btn {
   height: 50px;
   line-height: 50px;
-  width: 70vw;
+  width: calc(100vw - 120px);
+  max-width: 510px;
 }
 
 #gps-decline-btn {
