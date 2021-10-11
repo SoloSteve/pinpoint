@@ -6,7 +6,6 @@
   "repository": "",
   "license": "UNLICENSED",
   "framework7": {
-    "cwd": "/home/steve/Projects/pinpoint/frontend",
     "type": [
       "pwa",
       "web"
