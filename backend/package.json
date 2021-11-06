@@ -37,7 +37,7 @@
     "koa": "^2.13.4",
     "lodash": "^4.17.21",
     "nanoid": "^3.1.30",
-    "safebox": "git+ssh://git@bitbucket.org/stevecode/safebox.git#release",
+    "safebox": "git+ssh://git@github.com/SoloSteve/safebox.git#release",
     "socket.io": "^4.3.1",
     "winston": "^3.3.3"
   }
