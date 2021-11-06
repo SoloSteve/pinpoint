@@ -11,7 +11,7 @@ import {
 import Room from "../services/room";
 import {RoomDoesNotExistError, WebsocketValidationError} from "../types/exceptions";
 import {BaseSafeboxError} from "safebox";
-import * as Ajv from "ajv";
+import Ajv from "ajv";
 import {BAD_REQUEST} from "http-status-codes";
 
 const validator = new Ajv();
@@ -78,7 +78,6 @@ export default (wss: Server) => {
           path: userPath
         });
       }
-      socket.leaveAll();
       delete socket.agent;
       delete socket.roomId;
     });
